@@ -30,6 +30,10 @@ const _auth = initializeAuth(_app, {
 // ----------------------------------------------------------------------
 // auth
 
+const signUp = (email: string, password: string) => {
+  return createUserWithEmailAndPassword(_auth, email, password);
+};
+
 const signIn = (email: string, password: string) => {
   return signInWithEmailAndPassword(_auth, email, password);
 };
@@ -39,6 +43,7 @@ const createUser = (email: string, password: string) => {
 };
 
 const auth = {
+  signUp,
   signIn,
   createUser,
 };

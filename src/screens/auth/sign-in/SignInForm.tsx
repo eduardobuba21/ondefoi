@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
-// hooks
-import { useAuth } from '../../../hooks/useAuth';
 // components
 import { View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 // ----------------------------------------------------------------------
 
-export function SignUpForm() {
-  const { signUp } = useAuth();
-
+export function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const [isPwdHidden, setIsPwdHidden] = useState(false);
 
-  function handleSignUp() {
+  function handleSignIn() {
     setIsLoading(true);
-
-    signUp(email, password);
   }
 
   return (
@@ -45,8 +39,8 @@ export function SignUpForm() {
         }
       />
 
-      <Button mode="contained" loading={isLoading} onPress={handleSignUp} style={{ marginTop: 24 }}>
-        Registrar
+      <Button mode="contained" loading={isLoading} onPress={handleSignIn} style={{ marginTop: 24 }}>
+        Entrar
       </Button>
     </View>
   );
