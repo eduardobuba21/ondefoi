@@ -1,17 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-
-import { ThemeProvider } from 'styled-components';
+// theme
+import { ThemeProvider } from 'styled-components/native';
 import theme from './src/theme';
-
-import { Routes } from './src/routes/Routes';
+import { Provider as PaperProvider } from 'react-native-paper';
+// routes
+import { Routes } from './src/routes';
 
 // ----------------------------------------------------------------------
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar style="auto" />
-      <Routes />
+      <PaperProvider>
+        <StatusBar style="auto" />
+        <Routes />
+      </PaperProvider>
     </ThemeProvider>
   );
 }
