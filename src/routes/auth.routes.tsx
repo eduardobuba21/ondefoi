@@ -5,18 +5,18 @@ import { SignUp } from '@src/screens/auth/sign-up/SignUp';
 
 // ----------------------------------------------------------------------
 
-type RootStackParamList = {
+type RootParamList = {
   SignIn: undefined;
   SignUp: undefined;
 };
 
-export type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
-export type SignUpScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
+export type SignInScreenProps = NativeStackScreenProps<RootParamList, 'SignIn'>;
+export type SignUpScreenProps = NativeStackScreenProps<RootParamList, 'SignUp'>;
 
 // ----------------------------------------------------------------------
 
 export function AuthRoutes() {
-  const Stack = createNativeStackNavigator<RootStackParamList>();
+  const Stack = createNativeStackNavigator<RootParamList>();
 
   return (
     <Stack.Navigator

@@ -1,40 +1,42 @@
-import { Platform } from 'react-native';
-//
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-//
-import { MaterialIcons } from '@expo/vector-icons';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 // screens
-import Dashboard from '@src/screens/dashboard/Dashboard';
+import { Home } from '@src/screens/app/home/Home';
+import { Create } from '@src/screens/app/create/Create';
+import { Summary } from '@src/screens/app/summary/Summary';
 
 // ----------------------------------------------------------------------
 
 export function AppRoutes() {
-  const TabNavigator = createBottomTabNavigator();
-  const StackNavigator = createNativeStackNavigator();
+  const Tab = createMaterialBottomTabNavigator();
 
   return (
-    <TabNavigator.Navigator
-      screenOptions={{
-        headerShown: false,
-        // tabBarActiveTintColor: theme.palette.primary.main,
-        // tabBarInactiveTintColor: theme.palette.text.primary,
-        tabBarLabelPosition: 'beside-icon',
-        tabBarStyle: {
-          paddingVertical: Platform.OS === 'ios' ? 20 : 0,
-          height: Platform.OS === 'ios' ? 88 : 60,
-          // backgroundColor: theme.palette.background.paper,
-        },
-        tabBarHideOnKeyboard: true,
-      }}
-    >
-      <TabNavigator.Screen
-        name="Início"
-        component={Dashboard}
+    <Tab.Navigator initialRouteName="Home">
+      <Tab.Screen
+        name="Home"
+        component={Home}
         options={{
-          tabBarIcon: ({ size, color }) => <MaterialIcons size={size} color={color} name="home" />,
+          tabBarLabel: 'Início',
+          tabBarIcon: 'flash',
         }}
       />
-    </TabNavigator.Navigator>
+
+      <Tab.Screen
+        name="Create"
+        component={Create}
+        options={{
+          tabBarLabel: 'Adicionar',
+          tabBarIcon: 'currency-usd',
+        }}
+      />
+
+      <Tab.Screen
+        name="Summary"
+        component={Summary}
+        options={{
+          tabBarLabel: 'Resumo',
+          tabBarIcon: 'chart-timeline-variant',
+        }}
+      />
+    </Tab.Navigator>
   );
 }

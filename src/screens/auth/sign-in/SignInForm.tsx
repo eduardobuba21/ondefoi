@@ -8,13 +8,14 @@ import firebase from '@src/utils/firebase';
 // ----------------------------------------------------------------------
 
 export function SignInForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const [isPwdHidden, setIsPwdHidden] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  function handleSignIn() {
+  const [isPwdHidden, setIsPwdHidden] = useState(true);
+
+  function handleSubmit() {
     if (isLoading) return;
     setIsLoading(true);
 
@@ -47,7 +48,7 @@ export function SignInForm() {
         }
       />
 
-      <Button mode="contained" loading={isLoading} onPress={handleSignIn} style={{ marginTop: 24 }}>
+      <Button mode="contained" loading={isLoading} onPress={handleSubmit} style={{ marginTop: 24 }}>
         Entrar
       </Button>
     </View>
