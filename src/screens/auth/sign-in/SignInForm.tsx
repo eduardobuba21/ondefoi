@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 // components
 import { View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+// utils
+import firebase from '@src/utils/firebase';
 
 // ----------------------------------------------------------------------
 
@@ -13,7 +15,13 @@ export function SignInForm() {
   const [isPwdHidden, setIsPwdHidden] = useState(false);
 
   function handleSignIn() {
+    if (isLoading) return;
     setIsLoading(true);
+
+    firebase.auth.signIn(email, password).catch((error) => {
+      setIsLoading(false);
+      console.log('[buba] firebase/auth/sign-in - error: ', error.code);
+    });
   }
 
   return (

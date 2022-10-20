@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-// hooks
-import { useAuth } from '@src/hooks/useAuth';
 // components
 import { View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+// utils
+import firebase from '@src/utils/firebase';
 
 // ----------------------------------------------------------------------
 
 export function SignUpForm() {
-  const { signUp } = useAuth();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -17,9 +15,13 @@ export function SignUpForm() {
   const [isPwdHidden, setIsPwdHidden] = useState(false);
 
   function handleSignUp() {
+    if (isLoading) return;
     setIsLoading(true);
 
-    signUp(email, password);
+    firebase.auth.signUp(email, password).catch((error) => {
+      setIsLoading(false);
+      console.log('[buba] firebase/auth/sign-up - error: ', error.code);
+    });
   }
 
   return (

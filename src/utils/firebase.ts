@@ -2,11 +2,12 @@ import { initializeApp } from 'firebase/app';
 //
 import {
   initializeAuth,
+  getReactNativePersistence,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from 'firebase/auth';
+  signOut,
+} from 'firebase/auth/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getReactNativePersistence } from 'firebase/auth/react-native';
 
 // ----------------------------------------------------------------------
 
@@ -30,24 +31,18 @@ const _auth = initializeAuth(_app, {
 // ----------------------------------------------------------------------
 // auth
 
-const signUp = (email: string, password: string) => {
-  return createUserWithEmailAndPassword(_auth, email, password);
-};
-
-const signIn = (email: string, password: string) => {
-  return signInWithEmailAndPassword(_auth, email, password);
-};
-
-const createUser = (email: string, password: string) => {
-  return createUserWithEmailAndPassword(_auth, email, password);
-};
-
 const auth = {
-  signUp,
-  signIn,
-  createUser,
+  signUp: (email: string, password: string) => {
+    return createUserWithEmailAndPassword(_auth, email, password);
+  },
+  signIn: (email: string, password: string) => {
+    return signInWithEmailAndPassword(_auth, email, password);
+  },
+  signOut: () => {
+    signOut(_auth);
+  },
 };
 
 // ----------------------------------------------------------------------
 
-export default { auth };
+export default { _auth, auth };
