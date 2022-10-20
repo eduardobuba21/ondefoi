@@ -1,5 +1,5 @@
 // routes
-import { SignInScreenProps } from '../../../routes/auth.routes';
+import { SignInScreenProps } from '@src/routes/auth.routes';
 // components
 import { View } from 'react-native';
 import { Text, Button } from 'react-native-paper';

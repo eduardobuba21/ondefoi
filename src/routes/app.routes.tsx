@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //
 import { MaterialIcons } from '@expo/vector-icons';
 // screens
-import Dashboard from '../screens/dashboard/Dashboard';
+import Dashboard from '@src/screens/dashboard/Dashboard';
 
 // ----------------------------------------------------------------------
 

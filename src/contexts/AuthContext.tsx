@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //
-import firebase from '../config/firebase';
+import firebase from '@src/utils/firebase';
 
 const STORAGE_USER = '@finances:user';
 

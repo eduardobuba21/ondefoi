@@ -1,7 +1,7 @@
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 // screens
-import { SignIn } from '../screens/auth/sign-in/SignIn';
-import { SignUp } from '../screens/auth/sign-up/SignUp';
+import { SignIn } from '@src/screens/auth/sign-in/SignIn';
+import { SignUp } from '@src/screens/auth/sign-up/SignUp';
 
 // ----------------------------------------------------------------------
 

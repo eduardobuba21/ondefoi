@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // hooks
-import { useAuth } from '../../../hooks/useAuth';
+import { useAuth } from '@src/hooks/useAuth';
 // components
 import { View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';

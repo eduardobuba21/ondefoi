@@ -1,5 +1,5 @@
 // routes
-import { SignUpScreenProps } from '../../../routes/auth.routes';
+import { SignUpScreenProps } from '@src/routes/auth.routes';
 // components
 import { View } from 'react-native';
 import { Text, Button } from 'react-native-paper';
