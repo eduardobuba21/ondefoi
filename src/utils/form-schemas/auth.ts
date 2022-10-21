@@ -15,7 +15,7 @@ const Password = Yup.string()
   )
   .max(64, 'Sua senha pode ter no máximo 64 caracteres');
 
-//
+// ----------------------------------------------------------------------
 
 const Login = Yup.object().shape({
   email: Email,

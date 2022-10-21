@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode, useState, useEffect } from 'react';
 // utils
-import firebase from '@src/utils/firebase';
+import { auth } from '@src/utils/firebase/firebase';
+import { authMethods } from '@src/utils/firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth/react-native';
 
 // ----------------------------------------------------------------------
@@ -31,7 +32,7 @@ export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<AuthContextProps['user']>(null);
 
   useEffect(() => {
-    const onAuthStateChange = onAuthStateChanged(firebase._auth, (_user) => {
+    const onAuthStateChange = onAuthStateChanged(auth, (_user) => {
       if (_user) {
         const userData: User = {
           id: _user.uid,
@@ -49,7 +50,7 @@ export function AuthProvider({ children }: Props) {
   }, []);
 
   async function signOut() {
-    firebase.auth.signOut();
+    authMethods().signOut();
   }
 
   return (

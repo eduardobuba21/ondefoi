@@ -20,19 +20,22 @@ export default function RHFTextInput({ name, ...other }: Props) {
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState: { error } }) => (
+      render={({ field: { value, onChange }, fieldState: { error } }) => (
         <>
           <TextInput
-            {...field}
-            value={field.value}
-            onChangeText={field.onChange}
+            value={value ? value : null}
+            onChangeText={onChange}
             error={!!error}
             mode="outlined"
+            //
+            style={{ marginBottom: !!error ? 0 : 12 }}
             {...other}
           />
-          <HelperText type="error" visible={!!error}>
-            {error?.message}
-          </HelperText>
+          {!!error && (
+            <HelperText type="error" visible={!!error}>
+              {error?.message}
+            </HelperText>
+          )}
         </>
       )}
     />

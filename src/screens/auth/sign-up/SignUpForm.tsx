@@ -7,7 +7,7 @@ import { AuthSchemas } from '@src/utils/form-schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RHFProvider, RHFTextInput } from '@src/components/hook-form';
 // utils
-import firebase from '@src/utils/firebase';
+import { authMethods } from '@src/utils/firebase/auth';
 import { FirebaseError } from 'firebase/app';
 
 // ----------------------------------------------------------------------
@@ -26,7 +26,7 @@ export function SignUpForm() {
 
   // ----------------------------------------------------------------------
 
-  const defaultValues: FormProps = {
+  const defaultValues = {
     email: '',
     password: '',
     //
@@ -46,7 +46,7 @@ export function SignUpForm() {
 
   const onSubmit = async (data: FormProps) => {
     try {
-      await firebase.auth.signUp(data.email, data.password);
+      await authMethods().signUp(data.email, data.password);
     } catch (error: any) {
       if (error instanceof FirebaseError) {
         // TODO: firebase error message mapping
