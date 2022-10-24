@@ -38,7 +38,7 @@ const getMonthDifference = (start: Date, end: Date) => {
 };
 
 /** used to fill month selector */
-export const createPeriodList = () => {
+export const createMonthList = () => {
   const start = new Date('01/01/2022');
   const end = endOfYear(addYears(new Date(), 1));
   const difference = getMonthDifference(start, end);
