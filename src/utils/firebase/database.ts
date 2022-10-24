@@ -5,7 +5,6 @@ import { doc, addDoc, collection, onSnapshot } from 'firebase/firestore';
 import { ITransaction, TTransactionCreate } from '@src/@types/transaction';
 // utils
 import { startOfDay } from 'date-fns';
-import { pt } from 'date-fns/locale';
 
 // ----------------------------------------------------------------------
 

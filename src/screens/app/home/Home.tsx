@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 // hooks
 import { useAuth } from '@src/hooks/useAuth';
-import { useTheme } from '@src/hooks/useTheme';
 // components
 import { View } from 'react-native';
 import { Appbar } from 'react-native-paper';
@@ -16,7 +15,6 @@ import { TransactionList } from './TransactionList';
 // ----------------------------------------------------------------------
 
 export function Home() {
-  const theme = useTheme();
   const { signOut } = useAuth();
 
   // ----------------------------------------------------------------------
