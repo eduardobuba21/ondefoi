@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 // hooks
 import { useTheme } from '@src/hooks/useTheme';
-// types
-import { TMonthRef } from '@src/@types/common';
 // components
 import { Button, IconButton } from 'react-native-paper';
 import { Dimensions, FlatList, View, ViewToken } from 'react-native';
-import { createMonthList, isSameMonth } from '@src/utils/date';
+// utils
+import { TMonthRef, isSameMonth, createMonthList } from './transactionService';
 
 // ----------------------------------------------------------------------
 
@@ -21,7 +20,7 @@ const { width: _screenWidth } = Dimensions.get('screen');
 
 // ----------------------------------------------------------------------
 
-export function MonthList({ selectedMonth, onChangeMonth }: Props) {
+export function MonthSelect({ selectedMonth, onChangeMonth }: Props) {
   const theme = useTheme();
 
   // ----------------------------------------------------------------------
