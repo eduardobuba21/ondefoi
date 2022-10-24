@@ -10,7 +10,7 @@ export function AppRoutes() {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
-    <Tab.Navigator initialRouteName="Home">
+    <Tab.Navigator initialRouteName="Home" screenOptions={{}}>
       <Tab.Screen
         name="Home"
         component={Home}

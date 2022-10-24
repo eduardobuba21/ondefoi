@@ -13,7 +13,7 @@ export function Routes() {
   const { isLogged } = useAuth();
 
   return (
-    <NavigationContainer theme={theme as Theme}>
+    <NavigationContainer theme={theme as unknown as Theme}>
       {isLogged ? <AppRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );

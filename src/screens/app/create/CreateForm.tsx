@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 // components
 import { View } from 'react-native';
 import { FAB, Chip } from 'react-native-paper';
@@ -11,6 +11,7 @@ import { RHFProvider, RHFSegmentedButtons, RHFTextInput } from '@src/components/
 // types
 import { TTransactionCreate } from '@src/@types/transaction';
 // utils
+import { useIsFocused } from '@react-navigation/native';
 import { dbMethods } from '@src/utils/firebase/database';
 
 // ----------------------------------------------------------------------
@@ -22,6 +23,12 @@ type FormProps = TTransactionCreate & {
 // ----------------------------------------------------------------------
 
 export function CreateForm() {
+  // reset form when screen is changed
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    reset();
+  }, [isFocused]);
+
   // ----------------------------------------------------------------------
 
   const defaultValues = {
@@ -110,6 +117,7 @@ export function CreateForm() {
         <FAB
           icon=""
           mode="flat"
+          variant="secondary"
           label="Adicionar"
           loading={isSubmitting}
           onPress={handleSubmit(onSubmit)}

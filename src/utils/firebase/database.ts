@@ -1,8 +1,11 @@
 import { db, auth } from './firebase';
 //
-import { addDoc, doc, collection, DocumentData } from 'firebase/firestore';
+import { doc, addDoc, collection, onSnapshot } from 'firebase/firestore';
 // types
-import { TTransactionCreate } from '@src/@types/transaction';
+import { ITransaction, TTransactionCreate } from '@src/@types/transaction';
+// utils
+import { startOfDay } from 'date-fns';
+import { pt } from 'date-fns/locale';
 
 // ----------------------------------------------------------------------
 
@@ -17,7 +20,23 @@ class dbService {
     return {
       transactions: {
         create: (data: TTransactionCreate) => {
-          return addDoc(transactionsColRef, data);
+          return addDoc(transactionsColRef, {
+            ...data,
+            occurred_at: startOfDay(data.occurred_at),
+          } as TTransactionCreate);
+        },
+
+        index: (callback: (data: ITransaction[]) => void) => {
+          return onSnapshot(transactionsColRef, (snapshot) => {
+            const data = snapshot.docs.map((doc) => {
+              return {
+                id: doc.id,
+                ...doc.data(),
+                occurred_at: doc.data().occurred_at.toDate(),
+              } as ITransaction;
+            });
+            callback(data);
+          });
         },
       },
     };
