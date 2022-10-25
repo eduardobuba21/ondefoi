@@ -5,7 +5,7 @@ import { useTheme } from '@src/hooks/useTheme';
 import { Button, IconButton } from 'react-native-paper';
 import { Dimensions, FlatList, View, ViewToken } from 'react-native';
 // utils
-import { TMonthRef, isSameMonth, createMonthList } from './transactionService';
+import { TMonthRef, isSameMonth, createMonthList } from './service';
 
 // ----------------------------------------------------------------------
 

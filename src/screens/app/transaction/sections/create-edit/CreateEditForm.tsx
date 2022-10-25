@@ -11,7 +11,7 @@ import { RHFProvider, RHFSegmentedButtons, RHFTextInput } from '@src/components/
 // types
 import { TTransactionCreate } from '@src/@types/transaction';
 // utils
-import { useIsFocused } from '@react-navigation/native';
+// import { useIsFocused } from '@react-navigation/native';
 import { dbMethods } from '@src/utils/firebase/database';
 
 // ----------------------------------------------------------------------
@@ -22,12 +22,12 @@ type FormProps = TTransactionCreate & {
 
 // ----------------------------------------------------------------------
 
-export function CreateForm() {
+export function CreateEditForm() {
   // reset form when screen is changed
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    reset();
-  }, [isFocused]);
+  // const isFocused = useIsFocused();
+  // useEffect(() => {
+  //   reset();
+  // }, [isFocused]);
 
   // ----------------------------------------------------------------------
 
@@ -78,7 +78,7 @@ export function CreateForm() {
 
   return (
     <RHFProvider methods={methods}>
-      <View style={{ flex: 1, padding: 24, justifyContent: 'space-between' }}>
+      <View style={{ padding: 24, paddingTop: 0 }}>
         <View>
           {!!errors.afterSubmit && (
             <Chip icon="information" style={{ marginBottom: 12 }}>
@@ -115,6 +115,7 @@ export function CreateForm() {
         </View>
 
         <FAB
+          style={{ marginTop: 80 }}
           icon=""
           mode="flat"
           variant="secondary"

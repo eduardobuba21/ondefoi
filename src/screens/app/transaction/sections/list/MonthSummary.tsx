@@ -15,7 +15,7 @@ type Props = {
 
 // ----------------------------------------------------------------------
 
-export function Summary({ transactions }: Props) {
+export function MonthSummary({ transactions }: Props) {
   const theme = useTheme();
 
   // ----------------------------------------------------------------------
