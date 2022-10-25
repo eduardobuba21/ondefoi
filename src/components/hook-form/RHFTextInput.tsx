@@ -23,7 +23,7 @@ export default function RHFTextInput({ name, ...other }: Props) {
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <>
           <TextInput
-            value={value ? value : null}
+            value={value ? value + '' : ''}
             onChangeText={onChange}
             error={!!error}
             mode="outlined"

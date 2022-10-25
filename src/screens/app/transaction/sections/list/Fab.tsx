@@ -14,7 +14,7 @@ type Props = {
 // ----------------------------------------------------------------------
 
 export function Fab({ isExtended }: Props) {
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isCreateScreenOpen, setIsCreateScreenOpen] = useState(false);
 
   // ----------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ export function Fab({ isExtended }: Props) {
         icon={'plus'}
         label={'Adicionar'}
         extended={isExtended}
-        onPress={() => setIsSheetOpen(true)}
+        onPress={() => setIsCreateScreenOpen(true)}
         animateFrom={'right'}
         style={{
           bottom: 16,
@@ -33,8 +33,8 @@ export function Fab({ isExtended }: Props) {
         }}
       />
 
-      {isSheetOpen && (
-        <Sheet onClose={() => setIsSheetOpen(false)}>
+      {isCreateScreenOpen && (
+        <Sheet onClose={() => setIsCreateScreenOpen(false)}>
           <TransactionCreateEdit />
         </Sheet>
       )}

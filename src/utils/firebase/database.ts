@@ -1,8 +1,8 @@
 import { db, auth } from './firebase';
 //
-import { doc, addDoc, collection, onSnapshot } from 'firebase/firestore';
+import { doc, addDoc, updateDoc, collection, onSnapshot } from 'firebase/firestore';
 // types
-import { ITransaction, TTransactionCreate } from '@src/@types/transaction';
+import { ITransaction, TTransactionCreate, TTransactionUpdate } from '@src/@types/transaction';
 // utils
 import { startOfDay } from 'date-fns';
 
@@ -23,6 +23,13 @@ class dbService {
             ...data,
             occurred_at: startOfDay(data.occurred_at),
           } as TTransactionCreate);
+        },
+
+        update: (id: string, data: TTransactionUpdate) => {
+          const _docRef = doc(transactionsColRef, id);
+          return updateDoc(_docRef, {
+            ...data,
+          } as TTransactionUpdate);
         },
 
         index: (callback: (data: ITransaction[]) => void) => {

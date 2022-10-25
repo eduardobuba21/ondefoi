@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // hooks
 import { useTheme } from '@src/hooks/useTheme';
 // components
-import { Fab } from './Fab';
+import { Sheet } from '@src/components/Sheet';
 import { View, Dimensions, ScrollView } from 'react-native';
 import { List, Text, Divider, IconButton } from 'react-native-paper';
 // utils
 import { alpha } from '@src/utils/theme';
 import { fCurrency } from '@src/utils/formatNumber';
 import { TTransactionByDate } from './service';
+// sections
+import { Fab } from './Fab';
+import { TransactionCreateEdit } from '../../TransactionCreateEdit';
+import { ITransaction, TTransactionCreate } from '@src/@types/transaction';
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +32,14 @@ export function MonthTransactions({ transactions }: Props) {
   // ----------------------------------------------------------------------
 
   const [isFabExtended, setIsFabExtended] = useState(true);
+
+  const [isEditScreenOpen, setIsEditScreenOpen] = useState(false);
+  const [transactionEditData, setTransactionEditData] = useState<ITransaction>();
+
+  // useEffect(() => {
+  //   // close form on updated data received
+  //   setIsEditScreenOpen(false);
+  // }, [transactions]);
 
   // ----------------------------------------------------------------------
 
@@ -68,7 +80,14 @@ export function MonthTransactions({ transactions }: Props) {
                       }}
                       right={() => (
                         <View style={{ justifyContent: 'center' }}>
-                          <IconButton icon="pencil" size={20} onPress={() => {}} />
+                          <IconButton
+                            icon="pencil"
+                            size={20}
+                            onPress={() => {
+                              setTransactionEditData(transaction);
+                              setIsEditScreenOpen(true);
+                            }}
+                          />
                         </View>
                       )}
                     />
@@ -96,6 +115,16 @@ export function MonthTransactions({ transactions }: Props) {
       )}
 
       <Fab isExtended={isFabExtended} />
+
+      {isEditScreenOpen && (
+        <Sheet onClose={() => setIsEditScreenOpen(false)}>
+          <TransactionCreateEdit
+            onSuccess={() => setIsEditScreenOpen(false)}
+            isEdit
+            editData={transactionEditData}
+          />
+        </Sheet>
+      )}
     </>
   );
 }

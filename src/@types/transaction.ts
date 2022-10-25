@@ -21,9 +21,11 @@ export type TTransactionCreate = {
 
 // ----------------------------------------------------------------------
 
-export type TTransactionUpdate = {
+type TTransactionUpdatable = {
   description: string;
   value: number;
   occurred_at: Date;
   // category: string | null;
 };
+
+export type TTransactionUpdate = Partial<TTransactionUpdatable>;

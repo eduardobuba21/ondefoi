@@ -9,20 +9,33 @@ import { TransactionSchemas } from '@src/utils/form-schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RHFProvider, RHFSegmentedButtons, RHFTextInput } from '@src/components/hook-form';
 // types
-import { TTransactionCreate } from '@src/@types/transaction';
+import { ITransaction, TTransactionCreate, TTransactionUpdate } from '@src/@types/transaction';
 // utils
 // import { useIsFocused } from '@react-navigation/native';
 import { dbMethods } from '@src/utils/firebase/database';
 
 // ----------------------------------------------------------------------
 
-type FormProps = TTransactionCreate & {
+type Props = {
+  onSuccess: VoidFunction;
+  //
+  isEdit?: boolean;
+  editData?: ITransaction;
+};
+
+//
+
+type CreateFormProps = TTransactionCreate & {
+  afterSubmit?: string;
+};
+
+type UpdateFormProps = ITransaction & {
   afterSubmit?: string;
 };
 
 // ----------------------------------------------------------------------
 
-export function CreateEditForm() {
+export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
   // reset form when screen is changed
   // const isFocused = useIsFocused();
   // useEffect(() => {
@@ -40,9 +53,9 @@ export function CreateEditForm() {
     afterSubmit: undefined,
   };
 
-  const methods = useForm<FormProps>({
-    resolver: yupResolver(TransactionSchemas.Create),
-    defaultValues,
+  const methods = useForm<CreateFormProps | UpdateFormProps>({
+    resolver: yupResolver(isEdit ? TransactionSchemas.Update : TransactionSchemas.Create),
+    defaultValues: isEdit ? editData : defaultValues,
   });
 
   const {
@@ -52,19 +65,34 @@ export function CreateEditForm() {
     formState: { errors, isSubmitting },
   } = methods;
 
-  const onSubmit = async (data: FormProps) => {
+  const onSubmit = async (data: CreateFormProps | UpdateFormProps) => {
     try {
-      const createData: TTransactionCreate = {
-        description: data.description,
-        value: data.value,
-        type: data.type,
-        occurred_at: new Date(),
-        // category: null,
-      };
+      if (!isEdit) {
+        const _data = data as CreateFormProps;
+        const createData: TTransactionCreate = {
+          description: _data.description,
+          value: _data.value,
+          type: _data.type,
+          occurred_at: new Date(),
+          // category: null,
+        };
 
-      await dbMethods().transactions.create(createData);
+        await dbMethods().transactions.create(createData);
+        reset();
+      }
 
-      reset();
+      if (isEdit) {
+        const _data = data as UpdateFormProps;
+        const updateData: TTransactionUpdate = {
+          description: _data.description,
+          value: _data.value,
+          // category: null,
+        };
+
+        await dbMethods().transactions.update(_data.id, updateData);
+      }
+
+      onSuccess();
     } catch (error: any) {
       console.log('[ebuba] error: ', error);
       setError('afterSubmit', {
@@ -97,12 +125,14 @@ export function CreateEditForm() {
                 label: 'Entrada',
                 icon: 'plus-circle-outline',
                 style: { width: '50%' },
+                disabled: isEdit,
               },
               {
                 value: 'exit',
                 label: 'Saída',
                 icon: 'minus-circle-outline',
                 style: { width: '50%' },
+                disabled: isEdit,
               },
             ]}
             style={{ marginBottom: 12, marginTop: 4 }}
@@ -119,7 +149,7 @@ export function CreateEditForm() {
           icon=""
           mode="flat"
           variant="secondary"
-          label="Adicionar"
+          label={isEdit ? 'Salvar' : 'Adicionar'}
           loading={isSubmitting}
           onPress={handleSubmit(onSubmit)}
         />
