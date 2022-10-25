@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // hooks
 import { useTheme } from '@src/hooks/useTheme';
 // components
@@ -12,7 +12,7 @@ import { TTransactionByDate } from './service';
 // sections
 import { Fab } from './Fab';
 import { TransactionCreateEdit } from '../../TransactionCreateEdit';
-import { ITransaction, TTransactionCreate } from '@src/@types/transaction';
+import { ITransaction } from '@src/@types/transaction';
 
 // ----------------------------------------------------------------------
 
@@ -35,11 +35,6 @@ export function MonthTransactions({ transactions }: Props) {
 
   const [isEditScreenOpen, setIsEditScreenOpen] = useState(false);
   const [transactionEditData, setTransactionEditData] = useState<ITransaction>();
-
-  // useEffect(() => {
-  //   // close form on updated data received
-  //   setIsEditScreenOpen(false);
-  // }, [transactions]);
 
   // ----------------------------------------------------------------------
 

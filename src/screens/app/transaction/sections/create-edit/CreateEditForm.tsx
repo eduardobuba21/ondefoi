@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // components
 import { View } from 'react-native';
 import { FAB, Chip } from 'react-native-paper';
@@ -11,7 +11,6 @@ import { RHFProvider, RHFSegmentedButtons, RHFTextInput } from '@src/components/
 // types
 import { ITransaction, TTransactionCreate, TTransactionUpdate } from '@src/@types/transaction';
 // utils
-// import { useIsFocused } from '@react-navigation/native';
 import { dbMethods } from '@src/utils/firebase/database';
 
 // ----------------------------------------------------------------------
@@ -36,12 +35,6 @@ type UpdateFormProps = ITransaction & {
 // ----------------------------------------------------------------------
 
 export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
-  // reset form when screen is changed
-  // const isFocused = useIsFocused();
-  // useEffect(() => {
-  //   reset();
-  // }, [isFocused]);
-
   // ----------------------------------------------------------------------
 
   const defaultValues = {
