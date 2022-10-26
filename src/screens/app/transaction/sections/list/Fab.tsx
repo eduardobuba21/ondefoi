@@ -14,6 +14,8 @@ type Props = {
 // ----------------------------------------------------------------------
 
 export function Fab({ isExtended }: Props) {
+  // ----------------------------------------------------------------------
+
   const [isCreateScreenOpen, setIsCreateScreenOpen] = useState(false);
 
   // ----------------------------------------------------------------------
@@ -23,6 +25,7 @@ export function Fab({ isExtended }: Props) {
       <AnimatedFAB
         icon={'plus'}
         label={'Adicionar'}
+        variant="secondary"
         extended={isExtended}
         onPress={() => setIsCreateScreenOpen(true)}
         animateFrom={'right'}

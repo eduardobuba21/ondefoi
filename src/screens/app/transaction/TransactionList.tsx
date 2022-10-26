@@ -62,8 +62,7 @@ export function TransactionList() {
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header elevated>
-        <Appbar.Content title="Início" />
-        <Appbar.Action icon="exit-to-app" onPress={signOut} />
+        <Appbar.Content title="Transações" />
       </Appbar.Header>
 
       <MonthSelect selectedMonth={selectedMonth} onChangeMonth={setSelectedMonth} />
