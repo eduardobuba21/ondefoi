@@ -7,7 +7,12 @@ import { FAB, Chip } from 'react-native-paper';
 import { useForm } from 'react-hook-form';
 import { TransactionSchemas } from '@src/utils/form-schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RHFProvider, RHFSegmentedButtons, RHFTextInput } from '@src/components/hook-form';
+import {
+  RHFProvider,
+  RHFTextInput,
+  RHFCurrencyInput,
+  RHFSegmentedButtons,
+} from '@src/components/hook-form';
 // types
 import { ITransaction, TTransactionCreate, TTransactionUpdate } from '@src/@types/transaction';
 // utils
@@ -108,7 +113,7 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
           )}
 
           <RHFTextInput name="description" label="Descrição" />
-          <RHFTextInput name="value" label="Valor" />
+          <RHFCurrencyInput name="value" label="Valor" />
 
           <RHFSegmentedButtons
             name="type"
