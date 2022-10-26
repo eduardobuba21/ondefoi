@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
   RHFProvider,
   RHFTextInput,
+  RHFDatePicker,
   RHFCurrencyInput,
   RHFSegmentedButtons,
 } from '@src/components/hook-form';
@@ -46,6 +47,7 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
     description: '',
     value: undefined,
     type: 'exit' as TTransactionCreate['type'],
+    occurred_at: new Date(),
     // category: null,
     //
     afterSubmit: undefined,
@@ -71,7 +73,7 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
           description: _data.description,
           value: _data.value,
           type: _data.type,
-          occurred_at: new Date(),
+          occurred_at: _data.occurred_at,
           // category: null,
         };
 
@@ -84,6 +86,7 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
         const updateData: TTransactionUpdate = {
           description: _data.description,
           value: _data.value,
+          occurred_at: _data.occurred_at,
           // category: null,
         };
 
@@ -112,8 +115,9 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
             </Chip>
           )}
 
-          <RHFTextInput name="description" label="Descrição" />
           <RHFCurrencyInput name="value" label="Valor" />
+
+          <RHFTextInput name="description" label="Descrição" />
 
           <RHFSegmentedButtons
             name="type"
@@ -135,6 +139,8 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
             ]}
             style={{ marginBottom: 12, marginTop: 4 }}
           />
+
+          <RHFDatePicker name="occurred_at" />
 
           {/* <CategoryDialog
             category={category}
