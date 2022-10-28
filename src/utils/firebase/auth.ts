@@ -14,9 +14,10 @@ class authService {
 
   authMethods() {
     return {
-      signUp: async (email: string, password: string) => {
+      signUp: async (email: string, password: string, nickname: string) => {
         return createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
           return setDoc(doc(db, 'users', userCredential.user.uid), {
+            nickname: nickname,
             created_at: new Date(),
           });
         });

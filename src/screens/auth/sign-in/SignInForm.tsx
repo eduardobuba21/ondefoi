@@ -6,16 +6,15 @@ import { useForm } from 'react-hook-form';
 import { AuthSchemas } from '@src/utils/form-schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RHFProvider, RHFTextInput } from '@src/components/hook-form';
+// types
+import { TUserAuth } from '@src/@types/auth';
 // utils
 import { FirebaseError } from 'firebase/app';
 import { authMethods } from '@src/utils/firebase/auth';
 
 // ----------------------------------------------------------------------
 
-type FormProps = {
-  email: string;
-  password: string;
-  //
+type FormProps = TUserAuth & {
   afterSubmit?: string;
 };
 

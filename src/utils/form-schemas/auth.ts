@@ -25,6 +25,10 @@ const Login = Yup.object().shape({
 const Register = Yup.object().shape({
   email: Email,
   password: Password,
+  nickname: Yup.string()
+    .required('Informe um nome')
+    .min(3, 'Nome muito pequeno')
+    .max(32, 'Nome muito grande'),
 });
 
 // ----------------------------------------------------------------------
