@@ -1,6 +1,6 @@
 import { db, auth } from './firebase';
 //
-import { doc, addDoc, updateDoc, collection, onSnapshot } from 'firebase/firestore';
+import { doc, addDoc, updateDoc, deleteDoc, collection, onSnapshot } from 'firebase/firestore';
 // types
 import { ITransaction, TTransactionCreate, TTransactionUpdate } from '@src/@types/transaction';
 // utils
@@ -43,6 +43,11 @@ class dbService {
             });
             callback(data);
           });
+        },
+
+        delete: (id: string) => {
+          const _docRef = doc(transactionsColRef, id);
+          return deleteDoc(_docRef);
         },
       },
     };

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 // components
 import { View } from 'react-native';
-import { FAB, Chip } from 'react-native-paper';
+import { FAB, Chip, Button } from 'react-native-paper';
 // import { CategoryDialog } from './CategoryDialog';
+// hooks
+import { useTheme } from '@src/hooks/useTheme';
 // form
 import { useForm } from 'react-hook-form';
 import { TransactionSchemas } from '@src/utils/form-schemas';
@@ -41,6 +43,8 @@ type UpdateFormProps = ITransaction & {
 // ----------------------------------------------------------------------
 
 export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
+  const theme = useTheme();
+
   // ----------------------------------------------------------------------
 
   const defaultValues = {
@@ -105,6 +109,26 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
 
   // ----------------------------------------------------------------------
 
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const onDelete = async () => {
+    if (!isEdit || !editData) return;
+    await setIsDeleting(true);
+    try {
+      await dbMethods().transactions.delete(editData.id);
+      onSuccess();
+    } catch (error: any) {
+      console.log('[ebuba] error: ', error);
+      setError('afterSubmit', {
+        ...error,
+        message: error.message ?? 'Ocorreu um erro inesperado :/',
+      });
+    }
+    setIsDeleting(false);
+  };
+
+  // ----------------------------------------------------------------------
+
   return (
     <RHFProvider methods={methods}>
       <View style={{ padding: 24, paddingTop: 0 }}>
@@ -148,15 +172,27 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
           /> */}
         </View>
 
-        <FAB
-          style={{ marginTop: 80 }}
-          icon=""
-          mode="flat"
-          variant="secondary"
-          label={isEdit ? 'Salvar' : 'Adicionar'}
-          loading={isSubmitting}
-          onPress={handleSubmit(onSubmit)}
-        />
+        <View style={{ marginTop: 80 }}>
+          {isEdit && (
+            <Button
+              mode="outlined"
+              textColor={theme.colors.secondary}
+              onPress={onDelete}
+              loading={isDeleting}
+            >
+              Deletar
+            </Button>
+          )}
+          <FAB
+            style={{ marginTop: 12 }}
+            icon=""
+            mode="flat"
+            variant="secondary"
+            label={isEdit ? 'Salvar' : 'Adicionar'}
+            loading={isSubmitting}
+            onPress={handleSubmit(onSubmit)}
+          />
+        </View>
       </View>
     </RHFProvider>
   );
