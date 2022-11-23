@@ -1,19 +1,25 @@
+import { ReactNode } from 'react';
+// theme
+import { theme } from '@src/theme';
 // rhf
 import { useFormContext, Controller } from 'react-hook-form';
 // components
-import { TextInput, HelperText, TextInputProps } from 'react-native-paper';
+import { Text } from '@src/components/default';
+import { View, TextInput, TextInputProps } from 'react-native';
 
 // ----------------------------------------------------------------------
 
 type IProps = {
   name: string;
+  label: string;
+  right?: ReactNode;
 };
 
 type Props = IProps & Omit<TextInputProps, 'theme'>;
 
 // ----------------------------------------------------------------------
 
-export default function RHFTextInput({ name, ...other }: Props) {
+export default function RHFTextInput({ name, label, right, ...rest }: Props) {
   const { control } = useFormContext();
 
   return (
@@ -22,19 +28,44 @@ export default function RHFTextInput({ name, ...other }: Props) {
       control={control}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <>
-          <TextInput
-            value={value ? value + '' : ''}
-            onChangeText={onChange}
-            error={!!error}
-            mode="outlined"
-            //
-            style={{ marginBottom: !!error ? 0 : 12 }}
-            {...other}
-          />
+          <View
+            style={{
+              height: 56,
+              borderWidth: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderColor: theme.palette.text.disabled,
+              borderRadius: theme.props.borderRadius.element,
+              ...(!!error && {
+                marginBottom: 4,
+                borderColor: theme.palette.error.dark,
+              }),
+            }}
+          >
+            <TextInput
+              value={value ? value + '' : ''}
+              onChangeText={onChange}
+              placeholder={label}
+              selectionColor={theme.palette.text.faded}
+              placeholderTextColor={theme.palette.text.faded}
+              style={{
+                flex: 1,
+                fontSize: 14,
+                paddingVertical: 12,
+                paddingHorizontal: 24,
+                color: theme.palette.text.primary,
+              }}
+              {...rest}
+            />
+
+            <View style={{ paddingVertical: 2, paddingRight: 16 }}>{right}</View>
+          </View>
+
           {!!error && (
-            <HelperText type="error" visible={!!error}>
+            <Text variant="body2" style={{ color: theme.palette.error.dark }}>
               {error?.message}
-            </HelperText>
+            </Text>
           )}
         </>
       )}

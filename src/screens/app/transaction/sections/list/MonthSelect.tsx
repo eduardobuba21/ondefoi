@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 // hooks
 import { useTheme } from '@src/hooks/useTheme';
 // components
-import { Button, IconButton } from 'react-native-paper';
+import { Button, IconButton } from '@src/components/default';
 import { Dimensions, FlatList, View, ViewToken } from 'react-native';
 // utils
-import { TMonthRef, isSameMonth, createMonthList } from './service';
+import { TMonthRef, isSameMonth, createMonthList } from '@src/utils/transactions';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +37,10 @@ export function MonthSelect({ selectedMonth, onChangeMonth }: Props) {
       const monthIndex = monthList.findIndex((_period) =>
         isSameMonth(new Date(_period.refDate), selectedMonth)
       );
-      if (monthIndex > 0) setIndex(monthIndex);
+
+      if (monthIndex > 0) {
+        setIndex(monthIndex);
+      }
     };
 
     getCurrentMonthIndex();
@@ -83,80 +86,87 @@ export function MonthSelect({ selectedMonth, onChangeMonth }: Props) {
   return (
     <View
       style={{
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        backgroundColor: theme.colors.backdrop,
+        height: 54,
+        paddingVertical: 6,
+        position: 'relative',
+        backgroundColor: theme.palette.background.default,
       }}
     >
-      <View style={{ position: 'relative' }}>
-        <FlatList
-          ref={ref}
-          horizontal
-          data={monthList}
-          fadingEdgeLength={200}
-          onLayout={scrollToView}
-          style={{ flexGrow: 0 }}
-          initialScrollIndex={index}
-          keyExtractor={(item) => item.id}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: _screenWidth / 2 }}
-          onScrollToIndexFailed={() => {
-            const wait = new Promise((resolve) => setTimeout(resolve, 500));
-            wait.then(() => {
-              scrollToView();
-            });
-          }}
-          // viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-          renderItem={({ item, index: fIndex }) => {
-            return (
-              <View style={{ justifyContent: 'center', marginHorizontal: 2 }}>
-                <Button
-                  mode={fIndex === index ? 'contained-tonal' : 'text'}
-                  style={{ margin: 0, padding: 0, width: 120 }}
-                  textColor={theme.colors.onBackground}
-                  onPress={() => {
-                    setIndex(fIndex);
-                  }}
-                >
-                  {item.label}
-                </Button>
-              </View>
-            );
+      <FlatList
+        ref={ref}
+        horizontal
+        data={monthList}
+        initialScrollIndex={0}
+        fadingEdgeLength={200}
+        onLayout={scrollToView}
+        keyExtractor={(item) => item.id}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: _screenWidth / 2 }}
+        onScrollToIndexFailed={() => {
+          const wait = new Promise((resolve) => setTimeout(resolve, 500));
+          wait.then(() => {
+            scrollToView();
+          });
+        }}
+        // viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
+        renderItem={({ item, index: fIndex }) => {
+          return (
+            <View style={{ justifyContent: 'center', marginHorizontal: 2 }}>
+              <Button
+                style={{
+                  width: 120,
+                  height: '100%',
+                  borderRadius: 100,
+                  paddingVertical: 0,
+                  paddingHorizontal: 0,
+                  backgroundColor: theme.palette.background.paper,
+                  ...(fIndex !== index && {
+                    backgroundColor: 'transparent',
+                  }),
+                }}
+                onPress={() => {
+                  setIndex(fIndex);
+                }}
+              >
+                {item.label}
+              </Button>
+            </View>
+          );
+        }}
+      />
+
+      <View
+        style={{
+          height: 54,
+          width: '100%',
+          position: 'absolute',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingHorizontal: theme.props.padding.element,
+        }}
+      >
+        <IconButton
+          size={26}
+          selected
+          name="chevronLeft"
+          color={theme.palette.text.faded}
+          onPress={() => {
+            if (index === 0) return;
+            setIndex(index - 1);
           }}
         />
 
-        <View
-          style={{
-            position: 'absolute',
-            width: '100%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+        <IconButton
+          size={26}
+          selected
+          name="chevronRight"
+          color={theme.palette.text.faded}
+          onPress={() => {
+            if (index === monthList.length - 1) return;
+            setIndex(index + 1);
           }}
-        >
-          <IconButton
-            size={24}
-            selected
-            icon="chevron-left"
-            mode="contained-tonal"
-            style={{ margin: 0 }}
-            onPress={() => {
-              if (index === 0) return;
-              setIndex(index - 1);
-            }}
-          />
-
-          <IconButton
-            size={24}
-            selected
-            icon="chevron-right"
-            mode="contained-tonal"
-            style={{ margin: 0 }}
-            onPress={() => {
-              if (index === monthList.length - 1) return;
-              setIndex(index + 1);
-            }}
-          />
-        </View>
+        />
       </View>
     </View>
   );

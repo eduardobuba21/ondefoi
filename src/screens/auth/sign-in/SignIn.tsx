@@ -1,8 +1,9 @@
 // routes
 import { SignInScreenProps } from '@src/routes/auth.routes';
 // components
-import { View, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Logo } from '@src/components/Logo';
+import { Text, Button } from '@src/components/default';
+import { Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native';
 // sections
 import { SignInForm } from './SignInForm';
 
@@ -17,17 +18,23 @@ type Props = {
 export function SignIn({ navigation }: Props) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ flex: 1, padding: 24, justifyContent: 'center' }}>
-        <Text variant="titleLarge" style={{ marginBottom: 24, textAlign: 'center' }}>
+      <ScrollView style={{ flex: 1, padding: 24 }}>
+        <Logo style={{ marginTop: 80, marginBottom: 100 }} />
+
+        <Text variant="h1" style={{ marginBottom: 24, textAlign: 'center' }}>
           Acesse sua conta
         </Text>
 
         <SignInForm />
 
-        <Button mode="text" onPress={() => navigation.navigate('SignUp')} style={{ marginTop: 24 }}>
+        <Button
+          variant="text"
+          onPress={() => navigation.navigate('SignUp')}
+          style={{ marginTop: 24 }}
+        >
           Não tem uma conta?
         </Button>
-      </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 }

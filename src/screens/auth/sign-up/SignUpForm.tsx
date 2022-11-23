@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 // components
-import { Chip, Button, TextInput } from 'react-native-paper';
+import { Gap, Alert, Button, IconButton } from '@src/components/default';
+// hooks
+import { useTheme } from '@src/hooks/useTheme';
 // form
 import { useForm } from 'react-hook-form';
 import { AuthSchemas } from '@src/utils/form-schemas';
@@ -21,6 +23,7 @@ type FormProps = Omit<TUserCreate, 'created_at'> & {
 // ----------------------------------------------------------------------
 
 export function SignUpForm() {
+  const theme = useTheme();
   const [isPwdHidden, setIsPwdHidden] = useState(true);
 
   // ----------------------------------------------------------------------
@@ -34,7 +37,7 @@ export function SignUpForm() {
   };
 
   const methods = useForm<FormProps>({
-    resolver: yupResolver(AuthSchemas.Login),
+    resolver: yupResolver(AuthSchemas.Register),
     defaultValues,
   });
 
@@ -69,33 +72,34 @@ export function SignUpForm() {
   return (
     <RHFProvider methods={methods}>
       {!!errors.afterSubmit && (
-        <Chip icon="information" style={{ marginBottom: 12 }}>
-          {errors.afterSubmit.message}
-        </Chip>
+        <>
+          <Alert>{errors.afterSubmit.message}</Alert>
+          <Gap />
+        </>
       )}
 
-      <RHFTextInput name="nickname" label="Como quer ser chamado?" />
+      <RHFTextInput name="nickname" label="Nome" />
+
+      <Gap />
 
       <RHFTextInput name="email" label="Email" />
+
+      <Gap />
 
       <RHFTextInput
         name="password"
         label="Senha"
         secureTextEntry={isPwdHidden}
         right={
-          <TextInput.Icon
-            icon={isPwdHidden ? 'eye' : 'eye-off'}
+          <IconButton
+            name={isPwdHidden ? 'eye' : 'eyeOff'}
             onPress={() => setIsPwdHidden(!isPwdHidden)}
+            color={theme.palette.text.faded}
           />
         }
       />
 
-      <Button
-        mode="contained"
-        loading={isSubmitting}
-        onPress={handleSubmit(onSubmit)}
-        style={{ marginTop: 24 }}
-      >
+      <Button loading={isSubmitting} style={{ marginTop: 24 }} onPress={handleSubmit(onSubmit)}>
         Registrar
       </Button>
     </RHFProvider>

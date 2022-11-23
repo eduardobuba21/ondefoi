@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-// hooks
-import { useAuth } from '@src/hooks/useAuth';
 // components
 import { View } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Header } from '@src/components/default';
+// hooks
+import { useTransactions } from '@src/hooks/useTransactions';
 // types
 import { ITransaction } from '@src/@types/transaction';
+import { TransactionListScreenProps } from '@src/routes/app.routes';
 // utils
-import { dbMethods } from '@src/utils/firebase/database';
 import {
   TTransactionByDate,
   groupTransactionsByDay,
   filterTransactionsByMonth,
-} from './sections/list/service';
+} from '@src/utils/transactions';
 // sections
 import { MonthSelect } from './sections/list/MonthSelect';
 import { MonthSummary } from './sections/list/MonthSummary';
@@ -20,21 +20,16 @@ import { MonthTransactions } from './sections/list/MonthTransactions';
 
 // ----------------------------------------------------------------------
 
-export function TransactionList() {
-  const { signOut } = useAuth();
+type Props = {
+  navigation: TransactionListScreenProps['navigation'];
+};
 
-  // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
-  const [rawTransactions, setRawTransactions] = useState<ITransaction[]>([]);
+export function TransactionList({ navigation }: Props) {
+  const { rawTransactions } = useTransactions();
+
   const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
-
-  useEffect(() => {
-    const subscribe = dbMethods().transactions.index((data) => {
-      setRawTransactions(data);
-    });
-
-    return () => subscribe();
-  }, []);
 
   // ----------------------------------------------------------------------
 
@@ -61,9 +56,7 @@ export function TransactionList() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Appbar.Header elevated>
-        <Appbar.Content title="Transações" />
-      </Appbar.Header>
+      <Header onPressBack={() => navigation.navigate('Home')} title="Transações" />
 
       <MonthSelect selectedMonth={selectedMonth} onChangeMonth={setSelectedMonth} />
 

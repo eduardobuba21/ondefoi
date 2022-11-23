@@ -1,22 +1,20 @@
-// hooks
-import { useAuth } from '@src/hooks/useAuth';
 // components
 import { View } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Container } from '@src/components/default';
+import { HomeHeader } from '@src/components/HomeHeader';
+// sections
+import { SummaryCard } from './sections/SummaryCard';
 
 // ----------------------------------------------------------------------
 
 export function Home() {
-  const { signOut } = useAuth();
-
-  // ----------------------------------------------------------------------
-
   return (
     <View style={{ flex: 1 }}>
-      <Appbar.Header elevated>
-        <Appbar.Content title="Início" />
-        <Appbar.Action icon="exit-to-app" onPress={signOut} />
-      </Appbar.Header>
+      <HomeHeader />
+
+      <Container spacing="large">
+        <SummaryCard />
+      </Container>
     </View>
   );
 }

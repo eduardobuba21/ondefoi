@@ -1,8 +1,10 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 // hooks
 import { useTheme } from '@src/hooks/useTheme';
 // components
-import { Portal, Surface } from 'react-native-paper';
+import { Portal } from '@gorhom/portal';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { FadeInView } from './animations/FadeInView';
 import { View, BackHandler, TouchableWithoutFeedback } from 'react-native';
 
 // ----------------------------------------------------------------------
@@ -16,6 +18,8 @@ type Props = {
 
 export function Sheet({ children, onClose }: Props) {
   const theme = useTheme();
+
+  const bottomSheetRef = useRef<BottomSheet>(null);
 
   // ----------------------------------------------------------------------
 
@@ -40,8 +44,10 @@ export function Sheet({ children, onClose }: Props) {
         <TouchableWithoutFeedback onPress={onClose}>
           <View
             style={{
-              flex: 1,
-              backgroundColor: theme.colors.backdrop,
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              backgroundColor: theme.palette.background.backdrop,
             }}
           />
         </TouchableWithoutFeedback>
@@ -50,21 +56,29 @@ export function Sheet({ children, onClose }: Props) {
       <Portal>
         <View
           style={{
-            flex: 1,
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
             justifyContent: 'flex-end',
           }}
         >
-          <Surface
-            style={{
-              maxHeight: '80%',
-              overflow: 'hidden',
-              borderTopLeftRadius: 15,
-              borderTopRightRadius: 15,
-              backgroundColor: theme.colors.background,
+          <BottomSheet
+            ref={bottomSheetRef}
+            index={0}
+            snapPoints={['80%']}
+            backgroundStyle={{
+              backgroundColor: theme.palette.background.paper,
             }}
+            handleIndicatorStyle={{
+              backgroundColor: theme.palette.background.elevated,
+              width: 60,
+            }}
+            enablePanDownToClose
+            onClose={onClose}
           >
             {children}
-          </Surface>
+          </BottomSheet>
         </View>
       </Portal>
     </>

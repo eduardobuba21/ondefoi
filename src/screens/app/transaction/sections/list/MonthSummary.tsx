@@ -2,7 +2,7 @@
 import { useTheme } from '@src/hooks/useTheme';
 // components
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text } from '@src/components/default';
 // utils
 import { fCurrency } from '@src/utils/formatNumber';
 import { ITransaction } from '@src/@types/transaction';
@@ -41,7 +41,7 @@ export function MonthSummary({ transactions }: Props) {
   return (
     <View
       style={{
-        backgroundColor: theme.colors.backdrop,
+        backgroundColor: theme.palette.background.paper,
         height: 80,
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
@@ -68,12 +68,26 @@ type LabelProps = {
 };
 
 function CenterText({ label, value }: LabelProps) {
+  const theme = useTheme();
+
   return (
     <View style={{ flex: 1 }}>
-      <Text variant="labelLarge" style={{ textAlign: 'center' }}>
+      <Text
+        variant="h4"
+        style={{
+          textAlign: 'center',
+          fontWeight: theme.font.weights.medium,
+        }}
+      >
         {label}
       </Text>
-      <Text variant="titleLarge" style={{ fontWeight: 'bold', textAlign: 'center' }}>
+      <Text
+        variant="h2"
+        style={{
+          textAlign: 'center',
+          fontWeight: theme.font.weights.bold,
+        }}
+      >
         {value}
       </Text>
     </View>
@@ -85,12 +99,21 @@ function SideText({ label, value }: LabelProps) {
 
   return (
     <View style={{ flex: 1 }}>
-      <Text variant="labelMedium" style={{ textAlign: 'center', color: theme.colors.secondary }}>
+      <Text
+        variant="h4"
+        style={{
+          textAlign: 'center',
+          fontWeight: theme.font.weights.medium,
+        }}
+      >
         {label}
       </Text>
       <Text
-        variant="titleMedium"
-        style={{ fontWeight: 'bold', textAlign: 'center', color: theme.colors.secondary }}
+        variant="h3"
+        style={{
+          textAlign: 'center',
+          fontWeight: theme.font.weights.bold,
+        }}
       >
         {value}
       </Text>

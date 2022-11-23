@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-// components
-import { View } from 'react-native';
-import { FAB, Chip, Button } from 'react-native-paper';
-// import { CategoryDialog } from './CategoryDialog';
 // hooks
 import { useTheme } from '@src/hooks/useTheme';
+// types
+import { ITransaction, TTransactionCreate, TTransactionUpdate } from '@src/@types/transaction';
 // form
 import { useForm } from 'react-hook-form';
 import { TransactionSchemas } from '@src/utils/form-schemas';
@@ -16,10 +14,14 @@ import {
   RHFCurrencyInput,
   RHFSegmentedButtons,
 } from '@src/components/hook-form';
-// types
-import { ITransaction, TTransactionCreate, TTransactionUpdate } from '@src/@types/transaction';
+// components
+import { View } from 'react-native';
+import { Gap, Alert, Button, Container } from '@src/components/default';
 // utils
 import { dbMethods } from '@src/utils/firebase/database';
+import { ScrollView } from 'react-native-gesture-handler';
+// sections
+// import { CategoryDialog } from './CategoryDialog';
 
 // ----------------------------------------------------------------------
 
@@ -130,70 +132,82 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
   // ----------------------------------------------------------------------
 
   return (
-    <RHFProvider methods={methods}>
-      <View style={{ padding: 24, paddingTop: 0 }}>
-        <View>
-          {!!errors.afterSubmit && (
-            <Chip icon="information" style={{ marginBottom: 12 }}>
-              {errors.afterSubmit.message}
-            </Chip>
-          )}
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <RHFProvider methods={methods}>
+        <Container
+          insets={['B', 'L', 'R']}
+          style={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <View>
+            {!!errors.afterSubmit && (
+              <>
+                <Alert>{errors.afterSubmit.message}</Alert>
+                <Gap />
+              </>
+            )}
 
-          <RHFCurrencyInput name="value" label="Valor" />
+            <RHFCurrencyInput name="value" label="Valor" />
 
-          <RHFTextInput name="description" label="Descrição" />
+            <Gap />
 
-          <RHFSegmentedButtons
-            name="type"
-            buttons={[
-              {
-                value: 'entry',
-                label: 'Entrada',
-                icon: 'plus-circle-outline',
-                style: { width: '50%' },
-                disabled: isEdit,
-              },
-              {
-                value: 'exit',
-                label: 'Saída',
-                icon: 'minus-circle-outline',
-                style: { width: '50%' },
-                disabled: isEdit,
-              },
-            ]}
-            style={{ marginBottom: 12, marginTop: 4 }}
-          />
+            <RHFTextInput name="description" label="Descrição" />
 
-          <RHFDatePicker name="occurred_at" />
+            <Gap />
 
-          {/* <CategoryDialog
+            <RHFSegmentedButtons
+              name="type"
+              disabled={!!isEdit}
+              buttons={[
+                {
+                  value: 'entry',
+                  label: 'Entrada',
+                  icon: 'circlePlus',
+                },
+                {
+                  value: 'exit',
+                  label: 'Saída',
+                  icon: 'circleMinus',
+                },
+              ]}
+            />
+
+            <Gap />
+
+            <RHFDatePicker name="occurred_at" />
+
+            {/* <CategoryDialog
             category={category}
             setCategory={setCategory}
           /> */}
-        </View>
+          </View>
 
-        <View style={{ marginTop: 80 }}>
-          {isEdit && (
-            <Button
-              mode="outlined"
-              textColor={theme.colors.secondary}
-              onPress={onDelete}
-              loading={isDeleting}
-            >
-              Deletar
+          <View style={{}}>
+            {isEdit && (
+              <>
+                <Gap />
+                <Button
+                  onPress={onDelete}
+                  loading={isDeleting}
+                  variant="text"
+                  textStyle={{ color: theme.palette.error.main }}
+                >
+                  Deletar
+                </Button>
+              </>
+            )}
+
+            <Gap />
+
+            <Button onPress={handleSubmit(onSubmit)} loading={isSubmitting}>
+              {isEdit ? 'Salvar' : 'Adicionar'}
             </Button>
-          )}
-          <FAB
-            style={{ marginTop: 12 }}
-            icon=""
-            mode="flat"
-            variant="secondary"
-            label={isEdit ? 'Salvar' : 'Adicionar'}
-            loading={isSubmitting}
-            onPress={handleSubmit(onSubmit)}
-          />
-        </View>
-      </View>
-    </RHFProvider>
+          </View>
+        </Container>
+      </RHFProvider>
+    </ScrollView>
   );
 }

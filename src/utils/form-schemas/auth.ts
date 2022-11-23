@@ -8,7 +8,7 @@ export const Email = Yup.string()
   .max(128, 'Email muito grande');
 
 const Password = Yup.string()
-  .required('Insira uma senha')
+  .required('Informe uma senha')
   .matches(
     /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
     'Sua senha deve conter no mínimo: 8 caracteres, 1 maiúsculo, 1 minúsculo e 1 número'

@@ -1,30 +1,27 @@
 import { useState } from 'react';
+// theme
+import { theme } from '@src/theme';
 // rhf
 import { useFormContext, Controller } from 'react-hook-form';
 // components
-import { View, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Icon, Text } from '@src/components/default';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { TextInput, HelperText, TextInputProps } from 'react-native-paper';
+import { View, Keyboard, TextInput, Pressable, TextInputProps } from 'react-native';
+// utils
 import { fDateWritten } from '@src/utils/date';
 
 // ----------------------------------------------------------------------
 
-type IProps = {
+type Props = {
   name: string;
-};
-
-type Props = IProps & Omit<TextInputProps, 'theme'>;
+} & TextInputProps;
 
 // ----------------------------------------------------------------------
 
-export default function RHFDatePicker({ name, ...other }: Props) {
+export default function RHFDatePicker({ name, ...rest }: Props) {
   const { control } = useFormContext();
 
-  // ----------------------------------------------------------------------
-
   const [isOpen, setIsOpen] = useState(false);
-
-  // ----------------------------------------------------------------------
 
   return (
     <Controller
@@ -47,28 +44,52 @@ export default function RHFDatePicker({ name, ...other }: Props) {
             />
           )}
 
-          <TouchableWithoutFeedback
+          <Pressable
             onPress={() => {
               Keyboard.dismiss();
               setIsOpen(true);
             }}
           >
-            <View>
+            <View
+              style={{
+                height: 56,
+                borderWidth: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderColor: theme.palette.text.disabled,
+                borderRadius: theme.props.borderRadius.element,
+                ...(!!error && {
+                  marginBottom: 4,
+                  borderColor: theme.palette.error.dark,
+                }),
+              }}
+            >
               <TextInput
-                value={fDateWritten(value)}
-                error={!!error}
-                mode="outlined"
                 editable={false}
-                //
-                style={{ marginBottom: !!error ? 0 : 12 }}
-                {...other}
+                onChangeText={onChange}
+                value={fDateWritten(value)}
+                placeholderTextColor={theme.palette.text.faded}
+                style={{
+                  flex: 1,
+                  fontSize: 14,
+                  paddingVertical: 12,
+                  paddingHorizontal: 24,
+                  color: theme.palette.text.primary,
+                }}
+                {...rest}
               />
+
+              <View style={{ paddingVertical: 2, paddingRight: 16 }}>
+                <Icon name="calendar" color={theme.palette.text.faded} />
+              </View>
             </View>
-          </TouchableWithoutFeedback>
+          </Pressable>
+
           {!!error && (
-            <HelperText type="error" visible={!!error}>
+            <Text variant="body2" style={{ color: theme.palette.error.dark }}>
               {error?.message}
-            </HelperText>
+            </Text>
           )}
         </>
       )}

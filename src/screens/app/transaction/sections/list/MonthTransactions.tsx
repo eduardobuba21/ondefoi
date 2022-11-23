@@ -3,16 +3,16 @@ import { useState } from 'react';
 import { useTheme } from '@src/hooks/useTheme';
 // components
 import { Sheet } from '@src/components/Sheet';
+import { Container, Gap, Icon, IconButton, Text } from '@src/components/default';
 import { View, Dimensions, ScrollView } from 'react-native';
-import { List, Text, Divider, IconButton } from 'react-native-paper';
 // utils
 import { alpha } from '@src/utils/theme';
 import { fCurrency } from '@src/utils/formatNumber';
-import { TTransactionByDate } from './service';
+import { TTransactionByDate } from '@src/utils/transactions';
 // sections
-import { Fab } from './Fab';
-import { TransactionCreateEdit } from '../../TransactionCreateEdit';
+import { CreateFab } from './CreateFab';
 import { ITransaction } from '@src/@types/transaction';
+import { TransactionCreateEdit } from '../../TransactionCreateEdit';
 
 // ----------------------------------------------------------------------
 
@@ -47,51 +47,87 @@ export function MonthTransactions({ transactions }: Props) {
             setIsFabExtended(currentScrollPosition <= 0);
           }}
         >
-          <List.Section style={{ marginBottom: 90 }}>
-            {transactions.map((transactionsGroup) => (
-              <View key={transactionsGroup.date}>
-                <List.Subheader>{transactionsGroup.label}</List.Subheader>
-                <Divider />
+          <Container>
+            <View style={{ marginBottom: 70 }}>
+              {transactions.map((transactionsGroup) => (
+                <View key={transactionsGroup.date}>
+                  <Text
+                    variant="subtitle1"
+                    style={{
+                      marginBottom: 8,
+                      color: theme.palette.text.faded,
+                    }}
+                  >
+                    {transactionsGroup.label}
+                  </Text>
 
-                {transactionsGroup.transactions.map((transaction) => (
-                  <View key={transaction.id}>
-                    <List.Item
-                      title={transaction.description}
-                      description={'R$ ' + fCurrency(transaction.value)}
-                      left={() => {
-                        const isExit = transaction.type === 'exit';
-                        return (
-                          <List.Icon
-                            icon={isExit ? 'call-made' : 'call-received'}
+                  {transactionsGroup.transactions.map((transaction) => {
+                    const isExit = transaction.type === 'exit';
+
+                    return (
+                      <View
+                        key={transaction.id}
+                        style={{
+                          padding: 8,
+                          marginBottom: 8,
+                          display: 'flex',
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          borderRadius: theme.props.borderRadius.card,
+                          backgroundColor: theme.palette.background.paper,
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: 48,
+                            height: 48,
+                            display: 'flex',
+                            borderRadius: 100,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: isExit
+                              ? alpha(theme.palette.error.light, 0.12)
+                              : alpha(theme.palette.primary.light, 0.12),
+                          }}
+                        >
+                          <Icon
+                            name={isExit ? 'made' : 'received'}
+                            size="large"
                             color={isExit ? theme.palette.error.light : theme.palette.primary.light}
-                            style={{
-                              backgroundColor: isExit
-                                ? alpha(theme.palette.error.light, 0.1)
-                                : alpha(theme.palette.primary.light, 0.1),
-                              borderRadius: 100,
-                            }}
-                          />
-                        );
-                      }}
-                      right={() => (
-                        <View style={{ justifyContent: 'center' }}>
-                          <IconButton
-                            icon="pencil"
-                            size={20}
-                            onPress={() => {
-                              setTransactionEditData(transaction);
-                              setIsEditScreenOpen(true);
-                            }}
                           />
                         </View>
-                      )}
-                    />
-                    <Divider />
-                  </View>
-                ))}
-              </View>
-            ))}
-          </List.Section>
+
+                        <View
+                          style={{
+                            flexGrow: 1,
+                            paddingHorizontal: theme.props.padding.element,
+                          }}
+                        >
+                          <Text variant="h4" style={{ color: theme.palette.text.secondary }}>
+                            {transaction.description}
+                          </Text>
+                          <Text variant="subtitle1" style={{ color: theme.palette.text.faded }}>
+                            {'R$ ' + fCurrency(transaction.value)}
+                          </Text>
+                        </View>
+
+                        <IconButton
+                          name="edit"
+                          size="small"
+                          onPress={() => {
+                            setTransactionEditData(transaction);
+                            setIsEditScreenOpen(true);
+                          }}
+                        />
+                      </View>
+                    );
+                  })}
+
+                  <Gap />
+                </View>
+              ))}
+            </View>
+          </Container>
         </ScrollView>
       )}
 
@@ -103,13 +139,14 @@ export function MonthTransactions({ transactions }: Props) {
             justifyContent: 'center',
           }}
         >
-          <Text variant="bodyLarge" style={{ textAlign: 'center' }}>
-            {`Nenhum registro\nno período selecionado`}
-          </Text>
+          <Text
+            variant="subtitle1"
+            style={{ textAlign: 'center' }}
+          >{`Nenhum registro\nno período selecionado`}</Text>
         </View>
       )}
 
-      <Fab isExtended={isFabExtended} />
+      <CreateFab isExtended={isFabExtended} />
 
       {isEditScreenOpen && (
         <Sheet onClose={() => setIsEditScreenOpen(false)}>

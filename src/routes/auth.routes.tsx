@@ -1,4 +1,8 @@
-import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import {
+  StackScreenProps,
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 // screens
 import { SignIn } from '@src/screens/auth/sign-in/SignIn';
 import { SignUp } from '@src/screens/auth/sign-up/SignUp';
@@ -10,19 +14,19 @@ type RootParamList = {
   SignUp: undefined;
 };
 
-export type SignInScreenProps = NativeStackScreenProps<RootParamList, 'SignIn'>;
-export type SignUpScreenProps = NativeStackScreenProps<RootParamList, 'SignUp'>;
+export type SignInScreenProps = StackScreenProps<RootParamList, 'SignIn'>;
+export type SignUpScreenProps = StackScreenProps<RootParamList, 'SignUp'>;
 
 // ----------------------------------------------------------------------
 
 export function AuthRoutes() {
-  const Stack = createNativeStackNavigator<RootParamList>();
+  const Stack = createStackNavigator<RootParamList>();
 
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        animation: 'slide_from_bottom',
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <Stack.Screen name="SignIn" component={SignIn} />

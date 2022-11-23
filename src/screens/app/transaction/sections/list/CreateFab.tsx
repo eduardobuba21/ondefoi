@@ -1,6 +1,6 @@
 import { useState } from 'react';
 // components
-import { AnimatedFAB } from 'react-native-paper';
+import { Fab } from '@src/components/default';
 // sections
 import { Sheet } from '@src/components/Sheet';
 import { TransactionCreateEdit } from '../../TransactionCreateEdit';
@@ -8,30 +8,24 @@ import { TransactionCreateEdit } from '../../TransactionCreateEdit';
 // ----------------------------------------------------------------------
 
 type Props = {
-  isExtended: any;
+  isExtended: boolean;
 };
 
 // ----------------------------------------------------------------------
 
-export function Fab({ isExtended }: Props) {
-  // ----------------------------------------------------------------------
-
+export function CreateFab({ isExtended }: Props) {
   const [isCreateScreenOpen, setIsCreateScreenOpen] = useState(false);
-
-  // ----------------------------------------------------------------------
 
   return (
     <>
-      <AnimatedFAB
-        icon={'plus'}
-        label={'Adicionar'}
-        variant="secondary"
+      <Fab
+        icon="add"
+        label="Adicionar"
         extended={isExtended}
         onPress={() => setIsCreateScreenOpen(true)}
-        animateFrom={'right'}
         style={{
-          bottom: 16,
           right: 16,
+          bottom: 16,
           position: 'absolute',
         }}
       />

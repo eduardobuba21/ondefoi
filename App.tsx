@@ -1,10 +1,11 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-// theme
-import { Provider as ThemeProvider } from 'react-native-paper';
-import theme from './src/theme';
-// context
+// providers
+import { PortalProvider } from '@gorhom/portal';
 import { AuthProvider } from './src/contexts/AuthContext';
+
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 // routes
 import { Routes } from './src/routes';
 
@@ -12,14 +13,16 @@ import { Routes } from './src/routes';
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <SafeAreaProvider>
-        <StatusBar style="auto" />
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <PortalProvider>
+        <SafeAreaProvider>
+          <StatusBar style="light" />
 
-        <AuthProvider>
-          <Routes />
-        </AuthProvider>
-      </SafeAreaProvider>
-    </ThemeProvider>
+          <AuthProvider>
+            <Routes />
+          </AuthProvider>
+        </SafeAreaProvider>
+      </PortalProvider>
+    </GestureHandlerRootView>
   );
 }

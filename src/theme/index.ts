@@ -1,79 +1,69 @@
-import { MD3DarkTheme, createDynamicThemeColors } from 'react-native-paper';
+import colors from './colors';
+//
+import { alpha } from '@src/utils/theme';
+import { Theme as TNavigationTheme } from '@react-navigation/native';
 
 // ----------------------------------------------------------------------
 
-type CustomPalleteColor = {
-  lighter: string;
-  light: string;
-  main: string;
-  dark: string;
-  darker: string;
-};
-
-type CustomPallete = {
-  primary: CustomPalleteColor;
-  info: CustomPalleteColor;
-  success: CustomPalleteColor;
-  warning: CustomPalleteColor;
-  error: CustomPalleteColor;
-};
-
-//
-
-type MD3ThemeProps = typeof MD3DarkTheme;
-
-export type ThemeProps = MD3ThemeProps & {
-  palette: CustomPallete;
-};
-
-const { darkScheme } = createDynamicThemeColors({ sourceColor: '#00BEB7' });
+const mainBlack = '#121214';
+const mainWhite = '#FFFFFF';
 
 // ----------------------------------------------------------------------
 
 const palette = {
-  primary: {
-    lighter: '#C9FBE8',
-    light: '#5EEBCD',
-    main: '#00BEB7',
-    dark: '#007588',
-    darker: '#003E5B',
+  primary: { ...colors.primary, contrastText: mainWhite },
+
+  info: { ...colors.info, contrastText: mainWhite },
+  success: { ...colors.success, contrastText: mainBlack },
+  warning: { ...colors.warning, contrastText: mainBlack },
+  error: { ...colors.error, contrastText: mainWhite },
+
+  //
+
+  background: {
+    default: mainBlack,
+    paper: '#202024',
+    neutral: '#29292E',
+    elevated: '#323238',
+    backdrop: alpha(mainBlack, 0.8),
   },
-  info: {
-    lighter: '#D0F2FF',
-    light: '#74CAFF',
-    main: '#1890FF',
-    dark: '#0C53B7',
-    darker: '#04297A',
-  },
-  success: {
-    lighter: '#E9FCD4',
-    light: '#AAF27F',
-    main: '#54D62C',
-    dark: '#229A16',
-    darker: '#08660D',
-  },
-  warning: {
-    lighter: '#FFF7CD',
-    light: '#FFE16A',
-    main: '#FFC107',
-    dark: '#B78103',
-    darker: '#7A4F01',
-  },
-  error: {
-    lighter: '#FFE7D9',
-    light: '#FFA48D',
-    main: '#FF4842',
-    dark: '#B72136',
-    darker: '#7A0C2E',
+  text: { primary: mainWhite, secondary: '#E1E1E1', faded: '#8D8D99', disabled: '#323238' },
+};
+
+// ----------------------------------------------------------------------
+
+type TFontWeight = '300' | '500' | '800';
+
+const font = {
+  weights: {
+    bold: '800' as TFontWeight,
+    medium: '600' as TFontWeight,
+    regular: '500' as TFontWeight,
   },
 };
 
 // ----------------------------------------------------------------------
 
-const theme: ThemeProps = {
-  ...MD3DarkTheme,
-  colors: darkScheme,
-  palette: palette,
+const navigationColors: TNavigationTheme['colors'] = {
+  primary: palette.text.primary,
+  background: mainBlack,
+  card: palette.background.paper,
+  text: palette.text.primary,
+  border: palette.text.faded,
+  notification: palette.text.primary,
 };
 
-export default theme;
+// ----------------------------------------------------------------------
+
+const theme = {
+  dark: true,
+  palette: palette,
+  font: font,
+  props: { borderRadius: { element: 6, card: 8, shape: 20 }, padding: { element: 12 } },
+  //
+  colors: navigationColors, // used by react-navigation
+};
+
+// ----------------------------------------------------------------------
+
+export { theme };
