@@ -12,9 +12,12 @@
       "backgroundColor": "#000"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/a8fa1057-2508-4c50-88ae-849091e95b9c"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -26,6 +29,15 @@
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a8fa1057-2508-4c50-88ae-849091e95b9c"
+      }
+    },
+    "owner": "ebuba",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }

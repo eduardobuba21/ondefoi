@@ -48,7 +48,7 @@ export default function RHFSegmentedButtons({ name, buttons, disabled, ...other 
           {...other}
           style={{
             height: 56,
-            padding: 6,
+            padding: 4,
             display: 'flex',
             flexDirection: 'row',
             borderRadius: theme.props.borderRadius.element,
@@ -75,7 +75,7 @@ export default function RHFSegmentedButtons({ name, buttons, disabled, ...other 
               //
               backgroundColor: backgroundColor.value,
               //
-              ...(index !== 0 && { marginLeft: 6 }),
+              ...(index !== 0 && { marginLeft: 4 }),
             }));
 
             useEffect(() => {

@@ -97,6 +97,8 @@ function CenterText({ label, value }: LabelProps) {
 function SideText({ label, value }: LabelProps) {
   const theme = useTheme();
 
+  const color = label === 'ganhos' ? theme.palette.primary.main : theme.palette.error.main;
+
   return (
     <View style={{ flex: 1 }}>
       <Text
@@ -113,6 +115,7 @@ function SideText({ label, value }: LabelProps) {
         style={{
           textAlign: 'center',
           fontWeight: theme.font.weights.bold,
+          color: color,
         }}
       >
         {value}

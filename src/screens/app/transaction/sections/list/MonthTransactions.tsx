@@ -74,7 +74,7 @@ export function MonthTransactions({ transactions }: Props) {
                           alignItems: 'center',
                           flexDirection: 'row',
                           borderRadius: theme.props.borderRadius.card,
-                          backgroundColor: theme.palette.background.paper,
+                          backgroundColor: theme.palette.background.card,
                         }}
                       >
                         <View
@@ -86,14 +86,14 @@ export function MonthTransactions({ transactions }: Props) {
                             alignItems: 'center',
                             justifyContent: 'center',
                             backgroundColor: isExit
-                              ? alpha(theme.palette.error.light, 0.12)
-                              : alpha(theme.palette.primary.light, 0.12),
+                              ? alpha(theme.palette.error.main, 0.12)
+                              : alpha(theme.palette.primary.main, 0.12),
                           }}
                         >
                           <Icon
                             name={isExit ? 'made' : 'received'}
                             size="large"
-                            color={isExit ? theme.palette.error.light : theme.palette.primary.light}
+                            color={isExit ? theme.palette.error.main : theme.palette.primary.main}
                           />
                         </View>
 

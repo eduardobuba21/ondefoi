@@ -22,6 +22,7 @@ const palette = {
 
   background: {
     default: mainBlack,
+    card: '#1b1b1f',
     paper: '#202024',
     neutral: '#29292E',
     elevated: '#323238',
