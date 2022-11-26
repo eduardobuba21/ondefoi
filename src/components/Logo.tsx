@@ -1,7 +1,7 @@
 // components
 import { View, ViewProps } from 'react-native';
 // assets
-import LogoSlogan from '@src/assets/logo_slogan.svg';
+import LogoSlogan from '@src/assets/logo/logo_slogan.svg';
 
 // ----------------------------------------------------------------------
 

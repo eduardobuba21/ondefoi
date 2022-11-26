@@ -10,6 +10,7 @@ import { onAuthStateChanged } from 'firebase/auth/react-native';
 // ----------------------------------------------------------------------
 
 interface AuthContextProps {
+  isLoading: boolean;
   isLogged: boolean;
   user: (IUser & IUserAuth) | null;
   signOut: () => Promise<void>;
@@ -24,6 +25,7 @@ interface Props {
 //
 
 export function AuthProvider({ children }: Props) {
+  const [isLoading, setIsLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<AuthContextProps['user']>(null);
 
@@ -38,9 +40,11 @@ export function AuthProvider({ children }: Props) {
         };
         setUser(userData);
         setIsLogged(true);
+        setIsLoading(false);
       } else {
         setUser(null);
         setIsLogged(false);
+        setIsLoading(false);
       }
     });
 
@@ -54,6 +58,7 @@ export function AuthProvider({ children }: Props) {
   return (
     <AuthContext.Provider
       value={{
+        isLoading,
         isLogged,
         user,
         //

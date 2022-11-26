@@ -4,31 +4,26 @@
     "slug": "finances",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
+    "icon": "./src/assets/expo/icon.png",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "./src/assets/expo/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000"
+      "backgroundColor": "#121214"
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/a8fa1057-2508-4c50-88ae-849091e95b9c"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
-        "backgroundColor": "#000"
+        "foregroundImage": "./src/assets/expo/adaptive-icon.png",
+        "backgroundColor": "#121214"
       }
-    },
-    "web": {
-      "favicon": "./src/assets/favicon.png"
     },
     "extra": {
       "eas": {
