@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------
 
-export type TUserAuth = {
+export type TUserLogin = {
   email: string;
   password: string;
 };

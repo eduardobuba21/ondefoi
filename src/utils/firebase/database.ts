@@ -1,7 +1,16 @@
 import { db, auth } from './firebase';
 //
-import { doc, addDoc, updateDoc, deleteDoc, collection, onSnapshot } from 'firebase/firestore';
+import {
+  doc,
+  addDoc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  collection,
+  onSnapshot,
+} from 'firebase/firestore';
 // types
+import { IUser } from '@src/@types/user';
 import { ITransaction, TTransactionCreate, TTransactionUpdate } from '@src/@types/transaction';
 // utils
 import { startOfDay } from 'date-fns';
@@ -17,7 +26,16 @@ class dbService {
     const transactionsColRef = collection(userDocRef, 'transactions');
 
     return {
-      transactions: {
+      user: {
+        show: async () => {
+          const doc = await getDoc(userDocRef);
+          return {
+            ...doc.data(),
+          } as IUser;
+        },
+      },
+
+      transaction: {
         create: (data: TTransactionCreate) => {
           return addDoc(transactionsColRef, {
             ...data,

@@ -9,14 +9,14 @@ import { AuthSchemas } from '@src/utils/form-schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RHFProvider, RHFTextInput } from '@src/components/hook-form';
 // types
-import { TUserAuth } from '@src/@types/auth';
+import { TUserLogin } from '@src/@types/auth';
 // utils
 import { FirebaseError } from 'firebase/app';
 import { authMethods } from '@src/utils/firebase/auth';
 
 // ----------------------------------------------------------------------
 
-type FormProps = TUserAuth & {
+type FormProps = TUserLogin & {
   afterSubmit?: string;
 };
 

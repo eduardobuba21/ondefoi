@@ -1,21 +1,17 @@
 import React, { createContext, ReactNode, useState, useEffect } from 'react';
+// types
+import { IUser, IUserAuth } from '@src/@types/user';
 // utils
 import { auth } from '@src/utils/firebase/firebase';
 import { authMethods } from '@src/utils/firebase/auth';
+import { dbMethods } from '@src/utils/firebase/database';
 import { onAuthStateChanged } from 'firebase/auth/react-native';
 
 // ----------------------------------------------------------------------
 
-interface User {
-  id: string;
-  email: string;
-}
-
-//
-
 interface AuthContextProps {
   isLogged: boolean;
-  user: User | null;
+  user: (IUser & IUserAuth) | null;
   signOut: () => Promise<void>;
 }
 
@@ -32,11 +28,13 @@ export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<AuthContextProps['user']>(null);
 
   useEffect(() => {
-    const onAuthStateChange = onAuthStateChanged(auth, (_user) => {
+    const onAuthStateChange = onAuthStateChanged(auth, async (_user) => {
       if (_user) {
-        const userData: User = {
+        const _userData = await dbMethods().user.show();
+        const userData: IUser & IUserAuth = {
           id: _user.uid,
           email: _user.email || '',
+          ..._userData,
         };
         setUser(userData);
         setIsLogged(true);

@@ -24,7 +24,7 @@ export function TransactionsProvider({ children }: Props) {
   >([]);
 
   useEffect(() => {
-    const subscribe = dbMethods().transactions.index((data) => {
+    const subscribe = dbMethods().transaction.index((data) => {
       setRawTransactions(data);
     });
 

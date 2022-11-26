@@ -1,16 +1,20 @@
-import { TUserAuth } from './auth';
+import { TUserLogin } from './auth';
 
 // ----------------------------------------------------------------------
 
-export interface IUser {
+export interface IUserAuth {
   id: string;
+  email: string;
+}
+
+export interface IUser {
   nickname: string;
   created_at: Date;
 }
 
 // ----------------------------------------------------------------------
 
-export type TUserCreate = TUserAuth & {
+export type TUserCreate = TUserLogin & {
   nickname: string;
   created_at: Date;
 };

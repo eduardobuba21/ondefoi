@@ -8,9 +8,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // ----------------------------------------------------------------------
 
-export function HomeHeader() {
+export function Header() {
   const theme = useTheme();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   return (
     <SafeAreaView
@@ -18,8 +18,8 @@ export function HomeHeader() {
         height: 148,
         padding: 32,
         display: 'flex',
-        flexDirection: 'row',
         alignItems: 'center',
+        flexDirection: 'row',
         backgroundColor: theme.palette.background.paper,
       }}
     >
@@ -27,21 +27,23 @@ export function HomeHeader() {
         style={{
           width: 64,
           height: 64,
-          borderRadius: 100,
-          backgroundColor: theme.palette.text.disabled,
           display: 'flex',
+          borderRadius: 100,
           alignItems: 'center',
           justifyContent: 'center',
+          backgroundColor: theme.palette.text.disabled,
         }}
       >
         <Icon name="profile" size={48} color={theme.palette.text.faded} />
       </View>
 
-      <View style={{ flexGrow: 1, paddingHorizontal: 16 }}>
+      <View style={{ flexShrink: 1, marginRight: 'auto', paddingHorizontal: 16 }}>
         <Text variant="h4" style={{ color: theme.palette.text.faded }}>
           Olá,
         </Text>
-        <Text variant="h3">Eduardo Buba</Text>
+        <Text variant="h3" numberOfLines={1}>
+          {user ? user.nickname : '-'}
+        </Text>
       </View>
 
       <IconButton name="logout" onPress={signOut} color={theme.palette.text.faded} />

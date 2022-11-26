@@ -83,7 +83,7 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
           // category: null,
         };
 
-        await dbMethods().transactions.create(createData);
+        await dbMethods().transaction.create(createData);
         reset();
       }
 
@@ -96,7 +96,7 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
           // category: null,
         };
 
-        await dbMethods().transactions.update(_data.id, updateData);
+        await dbMethods().transaction.update(_data.id, updateData);
       }
 
       onSuccess();
@@ -117,7 +117,7 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
     if (!isEdit || !editData) return;
     await setIsDeleting(true);
     try {
-      await dbMethods().transactions.delete(editData.id);
+      await dbMethods().transaction.delete(editData.id);
       onSuccess();
     } catch (error: any) {
       console.log('[ebuba] error: ', error);
