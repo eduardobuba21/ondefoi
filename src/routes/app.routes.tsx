@@ -1,3 +1,4 @@
+import * as NavigationBar from 'expo-navigation-bar';
 import { createBottomTabNavigator, BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 // hooks
 import { useTheme } from '@src/hooks/useTheme';
@@ -39,6 +40,8 @@ export type TransactionListScreenProps = BottomTabScreenProps<RootParamList, 'Tr
 export function AppRoutes() {
   const theme = useTheme();
   const Tab = createBottomTabNavigator<RootParamList>();
+
+  NavigationBar.setBackgroundColorAsync(theme.palette.background.paper);
 
   return (
     <TransactionsProvider>

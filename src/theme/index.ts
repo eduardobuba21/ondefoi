@@ -33,13 +33,11 @@ const palette = {
 
 // ----------------------------------------------------------------------
 
-type TFontWeight = '300' | '500' | '800';
-
 const font = {
   weights: {
-    bold: '800' as TFontWeight,
-    medium: '600' as TFontWeight,
-    regular: '500' as TFontWeight,
+    bold: '800',
+    medium: '600',
+    regular: '500',
   },
 };
 

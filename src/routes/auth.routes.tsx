@@ -1,9 +1,10 @@
+import { StatusBar } from 'expo-status-bar';
+import * as NavigationBar from 'expo-navigation-bar';
 import {
   StackScreenProps,
   createStackNavigator,
   CardStyleInterpolators,
 } from '@react-navigation/stack';
-import { StatusBar } from 'expo-status-bar';
 // hooks
 import { useTheme } from '@src/hooks/useTheme';
 // screens
@@ -25,6 +26,8 @@ export type SignUpScreenProps = StackScreenProps<RootParamList, 'SignUp'>;
 export function AuthRoutes() {
   const theme = useTheme();
   const Stack = createStackNavigator<RootParamList>();
+
+  NavigationBar.setBackgroundColorAsync(theme.palette.background.default);
 
   return (
     <>
