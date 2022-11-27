@@ -6,7 +6,7 @@ import { useTheme } from '@src/hooks/useTheme';
 import { TransactionsProvider } from '@src/contexts/TransactionsContext';
 // components
 import { Icon } from '@src/components/default';
-import { Transition as ScreenTransition } from '@src/components/animations/Transition';
+import { addTransition } from '@src/components/animations/ScreenTransition';
 // screens
 import { Home } from '@src/screens/app/home/Home';
 import { TransactionList } from '@src/screens/app/transaction/TransactionList';
@@ -20,20 +20,6 @@ type RootParamList = {
 
 export type HomeScreenProps = BottomTabScreenProps<RootParamList, 'Home'>;
 export type TransactionListScreenProps = BottomTabScreenProps<RootParamList, 'TransactionList'>;
-
-// ----------------------------------------------------------------------
-
-const AnimatedHome = (props: any) => (
-  <ScreenTransition>
-    <Home {...props} />
-  </ScreenTransition>
-);
-
-const AnimatedTransactionList = (props: any) => (
-  <ScreenTransition>
-    <TransactionList {...props} />
-  </ScreenTransition>
-);
 
 // ----------------------------------------------------------------------
 
@@ -65,7 +51,7 @@ export function AppRoutes() {
       >
         <Tab.Screen
           name="Home"
-          component={AnimatedHome}
+          component={addTransition(Home)}
           options={{
             tabBarIcon: ({ color }) => {
               return <Icon name="home" color={color} size={34} />;
@@ -75,7 +61,7 @@ export function AppRoutes() {
 
         <Tab.Screen
           name="TransactionList"
-          component={AnimatedTransactionList}
+          component={addTransition(TransactionList)}
           options={{
             tabBarIcon: ({ color }) => {
               return <Icon name="sync" color={color} size={34} />;

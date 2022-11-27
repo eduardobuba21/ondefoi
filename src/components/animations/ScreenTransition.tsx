@@ -1,38 +1,37 @@
-import { useRef } from 'react';
-import { Animated } from 'react-native';
+import Animated, {
+  Easing,
+  withTiming,
+  useSharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import { useFocusEffect } from '@react-navigation/native';
 
 // ----------------------------------------------------------------------
 
+export const addTransition = (Screen: (props: any) => JSX.Element) => {
+  return (props: any) => <ScreenTransition>{Screen(props)}</ScreenTransition>;
+};
+
+// ----------------------------------------------------------------------
+
 export const ScreenTransition = (props: any) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const opacity = useSharedValue(0);
 
   useFocusEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 250,
-      useNativeDriver: true,
-    }).start();
+    opacity.value = withTiming(1, { duration: 250, easing: Easing.linear });
 
     return () => {
-      Animated.timing(fadeAnim, {
-        toValue: 0,
-        duration: 250,
-        useNativeDriver: true,
-      }).start();
+      opacity.value = withTiming(0, { duration: 250, easing: Easing.linear });
     };
   });
 
+  const animatedStyle = useAnimatedStyle(() => ({
+    flex: 1,
+    //
+    opacity: opacity.value,
+  }));
+
   // ----------------------------------------------------------------------
 
-  return (
-    <Animated.View
-      style={{
-        flex: 1,
-        opacity: fadeAnim,
-      }}
-    >
-      {props.children}
-    </Animated.View>
-  );
+  return <Animated.View style={[animatedStyle]}>{props.children}</Animated.View>;
 };
