@@ -6,7 +6,7 @@ import { useTheme } from '@src/hooks/useTheme';
 import { TransactionsProvider } from '@src/contexts/TransactionsContext';
 // components
 import { Icon } from '@src/components/default';
-// import { FadeInView } from '@src/components/animations/FadeInView';
+import { Transition as ScreenTransition } from '@src/components/animations/Transition';
 // screens
 import { Home } from '@src/screens/app/home/Home';
 import { TransactionList } from '@src/screens/app/transaction/TransactionList';
@@ -23,17 +23,17 @@ export type TransactionListScreenProps = BottomTabScreenProps<RootParamList, 'Tr
 
 // ----------------------------------------------------------------------
 
-// const AnimatedHome = (props: any) => (
-//   <FadeInView>
-//     <Home {...props} />
-//   </FadeInView>
-// );
-//
-// const AnimatedTransactionList = (props: any) => (
-//   <FadeInView>
-//     <TransactionList {...props} />
-//   </FadeInView>
-// );
+const AnimatedHome = (props: any) => (
+  <ScreenTransition>
+    <Home {...props} />
+  </ScreenTransition>
+);
+
+const AnimatedTransactionList = (props: any) => (
+  <ScreenTransition>
+    <TransactionList {...props} />
+  </ScreenTransition>
+);
 
 // ----------------------------------------------------------------------
 
@@ -59,10 +59,13 @@ export function AppRoutes() {
             backgroundColor: theme.palette.background.paper,
           },
         }}
+        sceneContainerStyle={{
+          backgroundColor: theme.palette.background.default,
+        }}
       >
         <Tab.Screen
           name="Home"
-          component={Home}
+          component={AnimatedHome}
           options={{
             tabBarIcon: ({ color }) => {
               return <Icon name="home" color={color} size={34} />;
@@ -72,7 +75,7 @@ export function AppRoutes() {
 
         <Tab.Screen
           name="TransactionList"
-          component={TransactionList}
+          component={AnimatedTransactionList}
           options={{
             tabBarIcon: ({ color }) => {
               return <Icon name="sync" color={color} size={34} />;
