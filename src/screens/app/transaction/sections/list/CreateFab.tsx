@@ -27,6 +27,7 @@ export function CreateFab({ isExtended }: Props) {
           right: 16,
           bottom: 16,
           position: 'absolute',
+          zIndex: 100,
         }}
       />
 

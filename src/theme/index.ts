@@ -1,5 +1,6 @@
 import colors from './colors';
 //
+import { TextStyle } from 'react-native';
 import { alpha } from '@src/utils/theme';
 import { Theme as TNavigationTheme } from '@react-navigation/native';
 
@@ -35,9 +36,9 @@ const palette = {
 
 const font = {
   weights: {
-    bold: '800',
-    medium: '600',
-    regular: '500',
+    bold: '800' as TextStyle['fontWeight'],
+    medium: '600' as TextStyle['fontWeight'],
+    regular: '500' as TextStyle['fontWeight'],
   },
 };
 

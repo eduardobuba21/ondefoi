@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { useTheme } from '@src/hooks/useTheme';
 // components
 import { Sheet } from '@src/components/Sheet';
-import { Container, Gap, Icon, IconButton, Text } from '@src/components/default';
+import { FadeV } from '@src/components/animations/FadeV';
 import { View, Dimensions, ScrollView } from 'react-native';
+import { Container, Gap, Icon, IconButton, Text } from '@src/components/default';
 // utils
 import { alpha } from '@src/utils/theme';
 import { fCurrency } from '@src/utils/formatNumber';
@@ -50,7 +51,7 @@ export function MonthTransactions({ transactions }: Props) {
           <Container>
             <View style={{ marginBottom: 70 }}>
               {transactions.map((transactionsGroup) => (
-                <View key={transactionsGroup.date}>
+                <FadeV.View key={transactionsGroup.date}>
                   <Text
                     variant="subtitle1"
                     style={{
@@ -124,7 +125,7 @@ export function MonthTransactions({ transactions }: Props) {
                   })}
 
                   <Gap />
-                </View>
+                </FadeV.View>
               ))}
             </View>
           </Container>
@@ -132,7 +133,7 @@ export function MonthTransactions({ transactions }: Props) {
       )}
 
       {!transactions.length && (
-        <View
+        <FadeV.View
           style={{
             flex: 1,
             alignItems: 'center',
@@ -143,7 +144,7 @@ export function MonthTransactions({ transactions }: Props) {
             variant="subtitle1"
             style={{ textAlign: 'center' }}
           >{`Nenhum registro\nno período selecionado`}</Text>
-        </View>
+        </FadeV.View>
       )}
 
       <CreateFab isExtended={isFabExtended} />
