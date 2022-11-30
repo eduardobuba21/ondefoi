@@ -15,7 +15,9 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/a8fa1057-2508-4c50-88ae-849091e95b9c"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -23,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/expo/adaptive-icon.png",
         "backgroundColor": "#121214"
-      }
+      },
+      "package": "com.ebuba.finances"
     },
     "androidStatusBar": {
       "barStyle": "light-content",
