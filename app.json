@@ -28,6 +28,11 @@
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#121214"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c5191e1b-29f2-4c9e-85d0-9f5e2e9d4f99"
+      }
     }
   }
 }
