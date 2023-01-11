@@ -14,7 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -22,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/expo/adaptive-icon.png"
       },
-      "package": "com.ebuba.finances"
+      "package": "com.ebuba.finances",
+      "versionCode": 2
     },
     "androidStatusBar": {
       "barStyle": "light-content",
