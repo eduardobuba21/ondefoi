@@ -1,12 +1,12 @@
 import { ViewProps } from 'react-native';
-import Animated, { FadingTransition, FadeInUp, FadeOutDown } from 'react-native-reanimated';
+import Animated, { FadingTransition, FadeOut, FadeIn } from 'react-native-reanimated';
 
 // ----------------------------------------------------------------------
 
-export const FadeV = {
+export const Fade = {
   View: ({ ...rest }: ViewProps) => {
     return (
-      <Animated.View entering={FadeInUp} exiting={FadeOutDown} layout={FadingTransition} {...rest}>
+      <Animated.View entering={FadeIn} exiting={FadeOut} layout={FadingTransition} {...rest}>
         {rest.children}
       </Animated.View>
     );

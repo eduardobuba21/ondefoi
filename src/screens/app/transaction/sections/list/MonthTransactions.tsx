@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTheme } from '@src/hooks/useTheme';
 // components
 import { Sheet } from '@src/components/Sheet';
-import { FadeV } from '@src/components/animations/FadeV';
+import { Fade } from '@src/components/animations/Fade';
 import { View, Dimensions, ScrollView } from 'react-native';
 import { Container, Gap, Icon, IconButton, Text } from '@src/components/default';
 // utils
@@ -51,7 +51,7 @@ export function MonthTransactions({ transactions }: Props) {
           <Container>
             <View style={{ marginBottom: 70 }}>
               {transactions.map((transactionsGroup) => (
-                <FadeV.View key={transactionsGroup.date}>
+                <Fade.View key={transactionsGroup.date}>
                   <Text
                     variant="subtitle1"
                     style={{
@@ -125,7 +125,7 @@ export function MonthTransactions({ transactions }: Props) {
                   })}
 
                   <Gap />
-                </FadeV.View>
+                </Fade.View>
               ))}
             </View>
           </Container>
@@ -133,7 +133,7 @@ export function MonthTransactions({ transactions }: Props) {
       )}
 
       {!transactions.length && (
-        <FadeV.View
+        <Fade.View
           style={{
             flex: 1,
             alignItems: 'center',
@@ -144,7 +144,7 @@ export function MonthTransactions({ transactions }: Props) {
             variant="subtitle1"
             style={{ textAlign: 'center' }}
           >{`Nenhum registro\nno período selecionado`}</Text>
-        </FadeV.View>
+        </Fade.View>
       )}
 
       <CreateFab isExtended={isFabExtended} />

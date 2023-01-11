@@ -4,7 +4,6 @@ import { useTheme } from '@src/hooks/useTheme';
 // components
 import { Portal } from '@gorhom/portal';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { FadeInView } from './animations/FadeInView';
 import { View, BackHandler, TouchableWithoutFeedback } from 'react-native';
 
 // ----------------------------------------------------------------------

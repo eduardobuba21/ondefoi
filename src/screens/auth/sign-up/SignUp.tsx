@@ -18,8 +18,15 @@ type Props = {
 export function SignUp({ navigation }: Props) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView style={{ flex: 1, padding: 24 }}>
-        <Logo style={{ marginTop: 80, marginBottom: 100 }} />
+      <ScrollView
+        style={{ flex: 1, padding: 24 }}
+        contentContainerStyle={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Logo style={{ marginBottom: 100 }} />
 
         <Text variant="h1" style={{ marginBottom: 24, textAlign: 'center' }}>
           Crie sua conta
