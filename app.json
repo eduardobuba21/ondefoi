@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "OndeFoi?",
-    "slug": "ondefoi",
-    "version": "1.0.0",
+    "slug": "finances",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/expo/icon.png",
     "userInterfaceStyle": "dark",
@@ -22,7 +22,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/expo/adaptive-icon.png"
       },
-      "package": "com.buba.ondefoi"
+      "package": "com.ebuba.finances"
     },
     "androidStatusBar": {
       "barStyle": "light-content",
