@@ -2,7 +2,7 @@
   "expo": {
     "name": "OndeFoi?",
     "slug": "finances",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./src/assets/expo/icon.png",
     "userInterfaceStyle": "dark",
@@ -25,7 +25,7 @@
         "foregroundImage": "./src/assets/expo/adaptive-icon.png"
       },
       "package": "com.ebuba.finances",
-      "versionCode": 2
+      "versionCode": 3
     },
     "androidStatusBar": {
       "barStyle": "light-content",
