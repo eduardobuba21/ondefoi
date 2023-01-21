@@ -26,7 +26,7 @@ type TButton = {
 type Props = {
   name: string;
   buttons: TButton[];
-  disabled: boolean;
+  disabled?: boolean;
 } & ViewProps;
 
 // ----------------------------------------------------------------------

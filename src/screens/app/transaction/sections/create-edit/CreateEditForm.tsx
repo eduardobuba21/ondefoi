@@ -92,6 +92,7 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
         const updateData: TTransactionUpdate = {
           description: _data.description,
           value: _data.value,
+          type: _data.type,
           occurred_at: _data.occurred_at,
           // category: null,
         };
@@ -160,7 +161,6 @@ export function CreateEditForm({ onSuccess, isEdit, editData }: Props) {
 
             <RHFSegmentedButtons
               name="type"
-              disabled={!!isEdit}
               buttons={[
                 {
                   value: 'entry',

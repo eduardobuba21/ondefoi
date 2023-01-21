@@ -22,6 +22,7 @@ export type TTransactionCreate = {
 type TTransactionUpdatable = {
   description: string;
   value: number;
+  type: 'entry' | 'exit';
   occurred_at: Date;
 };
 
